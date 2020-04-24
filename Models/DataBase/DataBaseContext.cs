@@ -13,6 +13,20 @@ namespace smart_table.Models.DataBase
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                FirstName = "William",
+                LastName = "Shakespeare",
+                Email = "test@test.com",
+                Blocked = false,
+                Password = "password",
+                DateOfBirth = "1990-10-10",
+                Type = 0,
+                PhoneNumber = "123",
+            }
+            );
             base.OnModelCreating(modelBuilder);
         }
     }
