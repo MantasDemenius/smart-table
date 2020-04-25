@@ -9,8 +9,8 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20200424184004_ExtendUser")]
-    partial class ExtendUser
+    [Migration("20200425141500_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace smart_table.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("smart_table.Models.DataBase.User", b =>
+            modelBuilder.Entity("smart_table.Models.DataBase.RegisteredUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,55 +28,42 @@ namespace smart_table.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<bool>("Blocked")
-                        .HasColumnName("blocked")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("DateOfBirth")
-                        .HasColumnName("date_of_birth")
+                    b.Property<string>("BirthDate")
+                        .HasColumnName("birth_date")
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasColumnName("email")
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnName("first_name")
-                        .HasColumnType("text");
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnName("is_blocked")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("LastName")
-                        .HasColumnName("last_name")
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .HasColumnName("password")
                         .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnName("phone_number")
+                    b.Property<string>("Phone")
+                        .HasColumnName("phone")
                         .HasColumnType("text");
 
-                    b.Property<int>("Type")
-                        .HasColumnName("type")
-                        .HasColumnType("integer");
+                    b.Property<string>("Surname")
+                        .HasColumnName("surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserRole")
+                        .IsRequired()
+                        .HasColumnName("role")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("user");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Blocked = false,
-                            DateOfBirth = "1990-10-10",
-                            Email = "test@test.com",
-                            FirstName = "William",
-                            LastName = "Shakespeare",
-                            Password = "password",
-                            PhoneNumber = "123",
-                            Type = 0
-                        });
+                    b.ToTable("registered_user");
                 });
 #pragma warning restore 612, 618
         }

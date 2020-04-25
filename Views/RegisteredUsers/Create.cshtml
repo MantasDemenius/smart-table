@@ -1,5 +1,5 @@
 ﻿@model smart_table.Models.DataBase.RegisteredUser
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Create";
 }
@@ -43,9 +43,9 @@
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" class="form-control"></select>
-                <span asp-validation-for="Role" class="text-danger"></span>
+                <label asp-for="UserRole" class="control-label"></label>
+                <select asp-for="UserRole" class="form-control" asp-items="@Html.GetEnumSelectList<smart_table.Models.DataBase.RegisteredUser.UserRoleEnum>()"></select>
+                <span asp-validation-for="UserRole" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

@@ -50,44 +50,18 @@ namespace smart_table.Migrations
                         .HasColumnName("phone")
                         .HasColumnType("text");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnName("role")
-                        .HasColumnType("text");
-
                     b.Property<string>("Surname")
                         .HasColumnName("surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserRole")
+                        .IsRequired()
+                        .HasColumnName("role")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("registered_user");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BirthDate = "1990-10-10",
-                            Email = "test@test.com",
-                            IsBlocked = false,
-                            Name = "William",
-                            Password = "password",
-                            Phone = "123",
-                            Role = "Administrator",
-                            Surname = "Shakespeare"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BirthDate = "1990-10-10",
-                            Email = "test@test.com",
-                            IsBlocked = false,
-                            Name = "Waiter",
-                            Password = "password",
-                            Phone = "123",
-                            Role = "Waiter",
-                            Surname = "Shakespeare"
-                        });
                 });
 #pragma warning restore 612, 618
         }

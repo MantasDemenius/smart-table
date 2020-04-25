@@ -53,7 +53,7 @@ namespace smart_table.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Surname,Email,Password,Phone,BirthDate,Role,IsBlocked,Id")] RegisteredUser registeredUser)
+        public async Task<IActionResult> Create([Bind("Name,Surname,Email,Password,Phone,BirthDate,UserRole,IsBlocked,Id")] RegisteredUser registeredUser)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace smart_table.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,Email,Password,Phone,BirthDate,Role,IsBlocked,Id")] RegisteredUser registeredUser)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,Email,Password,Phone,BirthDate,UserRole,IsBlocked,Id")] RegisteredUser registeredUser)
         {
             if (id != registeredUser.Id)
             {
