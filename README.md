@@ -3,7 +3,7 @@
 ## Prerequisites
 
 1. .NET Core SDK 3.1
-1. Entity Framework 3.1.3 (global install)
+1. Entity Framework 3.1.3 (global install with `dotnet tool install --global dotnet-ef --version 3.1.3`)
 1. Postgres 12
 
 ## Running
