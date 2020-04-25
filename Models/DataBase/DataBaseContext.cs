@@ -9,22 +9,22 @@ namespace smart_table.Models.DataBase
     {
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<RegisteredUser> RegisteredUser{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasData(
-            new User
+            modelBuilder.Entity<RegisteredUser>().HasData(
+            new RegisteredUser
             {
                 Id = 1,
-                FirstName = "William",
-                LastName = "Shakespeare",
+                Name = "William",
+                Surname = "Shakespeare",
                 Email = "test@test.com",
-                Blocked = false,
+                IsBlocked = false,
                 Password = "password",
-                DateOfBirth = "1990-10-10",
-                Type = 0,
-                PhoneNumber = "123",
+                BirthDate = "1990-10-10",
+                Role = "Administrator",
+                Phone = "123",
             }
             );
             base.OnModelCreating(modelBuilder);
