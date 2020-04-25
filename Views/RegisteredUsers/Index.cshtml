@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<smart_table.Models.DataBase.RegisteredUser>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Padavėjų valdymas";
 }
 
-<h1>Index</h1>
+<h1>Padavėjų valdymas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Naujas padavėjas</a>
 </p>
 <table class="table">
     <thead>
@@ -17,21 +17,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserRole)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsBlocked)
@@ -49,27 +34,19 @@
                 @Html.DisplayFor(modelItem => item.Surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @if (item.IsBlocked)
+                {
+                <span>Blokuotas</span>
+                }else
+                {
+                <span>Aktyvus</span>
+                }
+
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserRole)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsBlocked)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Peržiūrėti</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Ištrinti</a>
             </td>
         </tr>
 }

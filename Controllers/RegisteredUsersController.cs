@@ -9,6 +9,7 @@ using smart_table.Models.DataBase;
 
 namespace smart_table.Controllers
 {
+    
     public class RegisteredUsersController : Controller
     {
         private readonly DataBaseContext _context;
@@ -25,6 +26,7 @@ namespace smart_table.Controllers
         }
 
         // GET: RegisteredUsers/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

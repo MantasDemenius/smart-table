@@ -9,8 +9,8 @@ namespace smart_table.Models.DataBase
     {
         public enum UserRoleEnum
         {
-            Administrator,
-            Waiter
+            Administratorius = 1,
+            Padavėjas = 2
         }
 
         [Column("name")]
@@ -54,10 +54,10 @@ namespace smart_table.Models.DataBase
 
         [Column("role")]
         [Display(Name = "Rolė")]
-        public UserRoleEnum UserRole { get; set; } = UserRoleEnum.Waiter;
+        public UserRoleEnum UserRole { get; set; } = UserRoleEnum.Padavėjas;
 
         [Column("is_blocked")]
-        [Display(Name = "Užblokuoti")]
+        [Display(Name = "Būsena")]
         public bool IsBlocked { get; set; } = false;
     }
 }
