@@ -15,3 +15,6 @@ Running locally "dotnet run"
 
 Run migrations using "dotnet ef database update"
 Code first approach. Modify entities and database context, then run "dotnet ef migrations add MigrationName"
+
+## appsettings.json
+Change connection  string to suit your system, mainly password and database
