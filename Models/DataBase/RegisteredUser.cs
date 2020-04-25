@@ -5,6 +5,7 @@ namespace smart_table.Models.DataBase
     [Table("registered_user")]
     public class RegisteredUser : BaseEntity
     {
+
         [Column("name")]
         public string Name { get; set; }
 
@@ -24,9 +25,10 @@ namespace smart_table.Models.DataBase
         public string BirthDate { get; set; }
 
         [Column("role")]
-        public string Role { get; set; }
+        public UserRoleEnum Role { get; set; }
 
         [Column("is_blocked")]
         public bool IsBlocked { get; set; }
     }
+
 }
