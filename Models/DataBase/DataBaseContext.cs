@@ -16,14 +16,6 @@ namespace smart_table.Models.DataBase
             modelBuilder.Entity<RegisteredUser>()
                 .ToTable("registered_user");
 
-
-
-            //modelBuilder.Entity<RegisteredUser>()
-            //    .Property(s => s.Role)
-            //    .HasConversion(
-            //        v => v.ToString(),
-            //        v => (UserRoleEnum)Enum.Parse(typeof(RegisteredUser), v));
-
             modelBuilder.Entity<RegisteredUser>()
                 .Property(s => s.UserRole)
                 .HasConversion<string>();
