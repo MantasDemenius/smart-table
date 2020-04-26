@@ -35,7 +35,7 @@ namespace smart_table.Models.DataBase
         [Column("password")]
         [Required(ErrorMessage = "Slaptažodžio laukas yra privalomas")]
         [StringLength(255, ErrorMessage = "Slaptažodis yra per ilgas")]
-        [DataType(DataType.Password)]
+        //[DataType(DataType.Password)]
         [RegularExpression("^(?=.*[a-z])(?=.*[A-Z]).{8,}$", ErrorMessage = "Slaptažodis turi būti bent 8 simbolių ir turėti bent 1 didžiąją raidę")]
         [Display(Name = "Slaptažodis")]
         public string Password { get; set; }
