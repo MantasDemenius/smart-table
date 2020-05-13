@@ -1,0 +1,107 @@
+﻿@model IEnumerable<smart_table.Models.Menus>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Wed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sun)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeUntil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateUntil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sun)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeUntil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUntil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

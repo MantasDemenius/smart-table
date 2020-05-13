@@ -1,12 +1,10 @@
 ﻿@model smart_table.Models.RegisteredUsers
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Redaguoti";
 }
 
-<h1>Edit</h1>
-
-<h4>RegisteredUsers</h4>
+<h1>Redaguoti padavėją</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -54,14 +52,14 @@
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Išsaugoti" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Grįžti atgal</a>
 </div>
 
 @section Scripts {
