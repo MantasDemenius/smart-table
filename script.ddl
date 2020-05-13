@@ -77,7 +77,7 @@ CREATE TABLE bills
 	id integer NOT NULL,
 	date_time date NULL,
 	tips double precision NULL,
-	sum double precision NOT NULL,
+	amount double precision NOT NULL,
 	is_paid boolean NOT NULL,
 	evaluation varchar (255) NOT NULL,
 	fk_discounts integer NULL,
