@@ -13,7 +13,7 @@ CREATE TABLE discounts
 (
 	id bigserial NOT NULL primary key,
 	discount_code varchar (255) NOT NULL,
-	stand_until date NULL,
+	stand_until timestamp NULL,
 	discount_proc integer NOT NULL
 );
 
@@ -40,8 +40,8 @@ CREATE TABLE menus
 	fri boolean NOT NULL,
 	sat boolean NOT NULL,
 	sun boolean NOT NULL,
-	time_from date NULL,
-	time_until date NULL,
+	time_from time NULL,
+	time_until time NULL,
 	date_from date NULL,
 	date_until date NULL,
 	is_active boolean NOT NULL
@@ -68,7 +68,7 @@ INSERT INTO user_role(id, name) VALUES(2, 'waiter');
 CREATE TABLE bills
 (
 	id bigserial NOT NULL primary key,
-	date_time date NULL DEFAULT CURRENT_DATE,
+	date_time timestamp NULL DEFAULT CURRENT_DATE,
 	tips double precision NULL,
 	amount double precision NOT NULL,
 	is_paid boolean NOT NULL,
@@ -115,8 +115,8 @@ CREATE TABLE dish_ingredients
 
 CREATE TABLE menu_dishes
 (
-	date_from date NULL,
-	date_until date NULL,
+	date_from timestamp NULL,
+	date_until timestamp NULL,
 	fk_dishes bigint NOT NULL,
 	fk_menus bigint NOT NULL,
 	PRIMARY KEY(fk_dishes, fk_menus),
@@ -127,7 +127,7 @@ CREATE TABLE menu_dishes
 CREATE TABLE orders
 (
 	id bigserial NOT NULL primary key,
-	date_time date NULL DEFAULT CURRENT_DATE,
+	date_time timestamp NULL DEFAULT CURRENT_DATE,
 	temperature double precision NULL,
 	submitted boolean NOT NULL,
 	served boolean NOT NULL,

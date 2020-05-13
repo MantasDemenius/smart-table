@@ -19,8 +19,8 @@ namespace smart_table.Models
         public bool Fri { get; set; }
         public bool Sat { get; set; }
         public bool Sun { get; set; }
-        public DateTime? TimeFrom { get; set; }
-        public DateTime? TimeUntil { get; set; }
+        public TimeSpan? TimeFrom { get; set; }
+        public TimeSpan? TimeUntil { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateUntil { get; set; }
         public bool IsActive { get; set; }

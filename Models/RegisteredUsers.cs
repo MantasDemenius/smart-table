@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace smart_table.Models
 {
@@ -16,6 +17,8 @@ namespace smart_table.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+
+        [DataType(DataType.Date)] //Hide time picker
         public DateTime BirthDate { get; set; }
         public bool IsBlocked { get; set; }
         public long Role { get; set; }

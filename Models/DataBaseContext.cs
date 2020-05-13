@@ -8,6 +8,7 @@ namespace smart_table.Models.DataBase
 {
     public partial class DataBaseContext : DbContext
     {
+
         public DataBaseContext()
         {
         }
@@ -33,15 +34,6 @@ namespace smart_table.Models.DataBase
         public virtual DbSet<RegisteredUsers> RegisteredUsers { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseNpgsql("Host=localhost;Database=smarttableprod;User ID=postgres;Password=La.pas201;");
-//            }
-//        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Bills>(entity =>
@@ -54,7 +46,6 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")
-                    .HasColumnType("date")
                     .HasDefaultValueSql("CURRENT_DATE");
 
                 entity.Property(e => e.Evaluation)
@@ -106,9 +97,7 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.DiscountProc).HasColumnName("discount_proc");
 
-                entity.Property(e => e.StandUntil)
-                    .HasColumnName("stand_until")
-                    .HasColumnType("date");
+                entity.Property(e => e.StandUntil).HasColumnName("stand_until");
             });
 
             modelBuilder.Entity<DishCategories>(entity =>
@@ -237,13 +226,9 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.FkMenus).HasColumnName("fk_menus");
 
-                entity.Property(e => e.DateFrom)
-                    .HasColumnName("date_from")
-                    .HasColumnType("date");
+                entity.Property(e => e.DateFrom).HasColumnName("date_from");
 
-                entity.Property(e => e.DateUntil)
-                    .HasColumnName("date_until")
-                    .HasColumnType("date");
+                entity.Property(e => e.DateUntil).HasColumnName("date_until");
 
                 entity.HasOne(d => d.FkDishesNavigation)
                     .WithMany(p => p.MenuDishes)
@@ -286,11 +271,11 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.TimeFrom)
                     .HasColumnName("time_from")
-                    .HasColumnType("date");
+                    .HasColumnType("time without time zone");
 
                 entity.Property(e => e.TimeUntil)
                     .HasColumnName("time_until")
-                    .HasColumnType("date");
+                    .HasColumnType("time without time zone");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
@@ -340,7 +325,6 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")
-                    .HasColumnType("date")
                     .HasDefaultValueSql("CURRENT_DATE");
 
                 entity.Property(e => e.FkBills).HasColumnName("fk_bills");
