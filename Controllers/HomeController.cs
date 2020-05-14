@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using smart_table.Models;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace smart_table.Controllers
 {
@@ -18,9 +20,30 @@ namespace smart_table.Controllers
             _logger = logger;
         }
 
+        
         public IActionResult Index()
         {
             return View();
+        }
+
+        
+        
+        public IActionResult ConnectAsAdmin()
+        {
+            HttpContext.Session.SetInt32("user_role", 1);
+            return Redirect("~/ManageRegisteredUsers");
+        }
+
+        public IActionResult ConnectAsWaiter()
+        {
+            HttpContext.Session.SetInt32("user_role", 2);
+            return Redirect("~/ManageRegisteredUsers");
+        }
+
+        public IActionResult ConnectAsCustomer()
+        {
+            HttpContext.Session.SetInt32("user_role", 3);
+            return Redirect("~/ManageRegisteredUsers");
         }
 
         public IActionResult Privacy()

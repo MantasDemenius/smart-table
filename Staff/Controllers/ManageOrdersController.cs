@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +14,20 @@ namespace smart_table.Staff.Controllers
     public class ManageOrdersController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "Staff/Views/";
 
         public ManageOrdersController(DataBaseContext context)
         {
             _context = context;
         }
 
+        [Route("ManageOrders")]
         // GET: ManageOrders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> OpenManageOrdersView()
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             var dataBaseContext = _context.Orders.Include(o => o.FkBillsNavigation).Include(o => o.FkCustomerTablesNavigation).Include(o => o.FkRegisteredUsersNavigation);
-            return View(await dataBaseContext.ToListAsync());
+            return View(_viewsPath + "ManageOrdersView.cshtml", await dataBaseContext.ToListAsync());
         }
 
         // GET: ManageOrders/Details/5
