@@ -413,6 +413,41 @@ namespace smart_table.Models.DataBase
                     .IsFixedLength();
             });
 
+            modelBuilder.Entity<EventType>().HasData(
+                new EventType
+                {
+                    Id = 1,
+                    Name = "bill_request"
+                },
+                new EventType
+                {
+                    Id = 2,
+                    Name = "cancel_order"
+                },
+                new EventType
+                {
+                    Id = 3,
+                    Name = "new_customer"
+                },
+                new EventType
+                {
+                    Id = 4,
+                    Name = "new_order"
+                }
+                );
+
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole
+                {
+                    Id = 1,
+                    Name = "administrator"
+                },
+                new UserRole
+                {
+                    Id = 2,
+                    Name = "waiter"
+                });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
