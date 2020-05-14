@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smart_table.Models
 {
-    [Table("registered_user")]
     public partial class RegisteredUsers
     {
         public RegisteredUsers()
