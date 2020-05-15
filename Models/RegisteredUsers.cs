@@ -54,7 +54,7 @@ namespace smart_table.Models
         public DateTime BirthDate { get; set; }
 
         [Column("is_blocked")]
-        [Display(Name = "Būsena")]
+        [Display(Name = "Blokuotas")]
         public bool IsBlocked { get; set; }
 
         [Column("role")]

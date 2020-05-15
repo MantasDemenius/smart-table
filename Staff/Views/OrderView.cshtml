@@ -1,7 +1,8 @@
 ﻿@model smart_table.Models.Orders
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Details</h1>
@@ -10,51 +11,73 @@
     <h4>Orders</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateTime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateTime)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Temperature)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Temperature)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Submitted)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Submitted)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Served)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Served)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FkBillsNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FkBillsNavigation.Evaluation)
+        <dd class="col-sm-10">
+            @{
+                if (Model.FkBillsNavigation != null)
+                {
+                    @Html.DisplayFor(model => model.FkBillsNavigation.Id)
+                }
+
+            }
+
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FkCustomerTablesNavigation)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FkCustomerTablesNavigation.Id)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FkRegisteredUsersNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FkRegisteredUsersNavigation.Email)
+        <dd class="col-sm-10">
+            @{
+                if (Model.FkRegisteredUsersNavigation != null)
+                {
+                    <div>@Model.FkRegisteredUsersNavigation.Name @Model.FkRegisteredUsersNavigation.Surname</div>
+                }
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Užsakymas:
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.OrderDishes)
+            {
+                <p>hello</p>
+                @Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)
+                
+            }
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="OpenManageOrdersView">Grįžti atgal</a>
 </div>

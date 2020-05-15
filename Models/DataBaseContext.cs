@@ -447,7 +447,179 @@ namespace smart_table.Models.DataBase
                     Id = 2,
                     Name = "waiter"
                 });
-
+            modelBuilder.Entity<RegisteredUsers>().HasData(
+                new RegisteredUsers
+                {
+                    Id = 1,
+                    Name = "User1",
+                    Surname = "User1",
+                    Password = "Password123",
+                    Phone = "860000000",
+                    Email = "email@email.com",
+                    BirthDate = DateTime.Parse("2000-01-01"),
+                    IsBlocked = false,
+                    Role = 1
+                },
+                new RegisteredUsers
+                {
+                    Id = 2,
+                    Name = "User2",
+                    Surname = "User2",
+                    Password = "Password456",
+                    Phone = "",
+                    Email = "",
+                    BirthDate = DateTime.Parse("2001-01-01"),
+                    IsBlocked = true,
+                    Role = 2
+                });
+            modelBuilder.Entity<Ingredients>().HasData(
+                new Ingredients
+                {
+                    Id = 1,
+                    Title = "Kumpis"
+                },
+                new Ingredients
+                {
+                    Id = 2,
+                    Title = "Suris"
+                });
+            modelBuilder.Entity<DishCategories>().HasData(
+                new DishCategories
+                {
+                    Id = 1,
+                    Title = "Picos"
+                },
+                new DishCategories
+                {
+                    Id = 2,
+                    Title = "Gerimai"
+                });
+            modelBuilder.Entity<Dishes>().HasData(
+                new Dishes
+                {
+                    Id = 1,
+                    Title = "Capriciosa",
+                    Description = "Labai skani pica",
+                    Price = 11.99,
+                    Calories = 300,
+                    Discount = 20,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 2,
+                    Title = "Cola",
+                    Description = "Nesveika, bet skanu",
+                    Price = 1.99,
+                    Calories = -1,
+                    Discount = 0,
+                    FkDishCategories = 2
+                });
+            
+            modelBuilder.Entity<Bills>().HasData(
+                new Bills
+                {
+                    Id = 1,
+                    DateTime = DateTime.Parse("2020-04-01"),
+                    Tips = 10,
+                    Amount = 50.45,
+                    IsPaid = true,
+                    Evaluation = "Labai skanus maistas",
+                    FkDiscounts = 1
+                },
+                new Bills
+                {
+                    Id = 2,
+                    DateTime = DateTime.Parse("2020-05-01"),
+                    Tips = 0,
+                    Amount = 5.39,
+                    IsPaid = false,
+                    Evaluation = "Malonus aptarnavimas",
+                    FkDiscounts = 2
+                });
+                
+            modelBuilder.Entity<Discounts>().HasData(
+                new Discounts
+                {
+                    Id = 1,
+                    DiscountCode = "ST101",
+                    StandUntil = DateTime.Parse("2020-12-31"),
+                    DiscountProc = 15
+                },
+                new Discounts
+                {
+                    Id = 2,
+                    DiscountCode = "ST102",
+                    StandUntil = DateTime.Parse("2020-01-31"),
+                    DiscountProc = 25
+                });
+            
+            modelBuilder.Entity<Orders>().HasData(
+                new Orders
+                {
+                    Id = 1,
+                    DateTime = DateTime.Parse("2020-04-01"),
+                    Temperature = 15,
+                    Submitted = true,
+                    Served = true,
+                    FkBills = 1,
+                    FkRegisteredUsers = 2,
+                    FkCustomerTables = 1
+                },
+                new Orders
+                {
+                    Id = 2,
+                    DateTime = DateTime.Parse("2020-05-01"),
+                    Temperature = 17,
+                    Submitted = true,
+                    Served = false,
+                    FkBills = 2,
+                    FkRegisteredUsers = 2,
+                    FkCustomerTables = 2
+                }
+                );
+                
+            modelBuilder.Entity<CustomerTables>().HasData(
+                new CustomerTables
+                {
+                    Id = 1,
+                    SeatsCount = 6,
+                    QrCode = "ABC",
+                    IsTaken = true,
+                    JoinCode = "DEF"
+                },
+                new CustomerTables
+                {
+                    Id = 2,
+                    SeatsCount = 4,
+                    QrCode = "qrt",
+                    IsTaken = false,
+                    JoinCode = "wxz"
+                }
+                );
+            modelBuilder.Entity<OrderDishes>().HasData(
+                new OrderDishes
+                {
+                    FkDishes = 1,
+                    FkOrders = 1,
+                    Quantity = 2,
+                    Comment = "Viena pica be pado"
+                },
+                new OrderDishes
+                {
+                    FkDishes = 2,
+                    FkOrders = 1,
+                    Quantity = 2,
+                    Comment = "Be cukraus"
+                },
+                new OrderDishes
+                {
+                    FkDishes = 1,
+                    FkOrders = 2,
+                    Quantity = 1,
+                    Comment = ""
+                }
+                );
             OnModelCreatingPartial(modelBuilder);
         }
 

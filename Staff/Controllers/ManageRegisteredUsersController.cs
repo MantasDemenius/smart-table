@@ -34,6 +34,7 @@ namespace smart_table.Controllers
         // GET: RegisteredUsers/Details/5
         public async Task<IActionResult> OpenRegisteredUserView(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -53,6 +54,7 @@ namespace smart_table.Controllers
         // GET: RegisteredUsers/Create
         public IActionResult OpenCreateRegisteredUserView()
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             ViewData["Role"] = new SelectList(_context.UserRole, "Id", "Name");
             return View(_viewsPath + "RegisteredUserCreateForm.cshtml");
         }
@@ -64,6 +66,7 @@ namespace smart_table.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRegisteredUser([Bind("Id,Name,Surname,Password,Phone,Email,BirthDate,IsBlocked,Role")] RegisteredUsers registeredUsers)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (!ModelState.IsValid)
             {
                 ViewData["Role"] = new SelectList(_context.UserRole, "Id", "Name", registeredUsers.Role);
@@ -84,7 +87,7 @@ namespace smart_table.Controllers
 
         private bool ValidateRegisteredUser(RegisteredUsers user)
         {
-            if(user.BirthDate > DateTime.Now)
+            if (user.BirthDate > DateTime.Now)
             {
                 return false;
             }
@@ -94,6 +97,7 @@ namespace smart_table.Controllers
         // GET: RegisteredUsers/Edit/5
         public async Task<IActionResult> OpenEditRegisteredUserView(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -115,6 +119,7 @@ namespace smart_table.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRegisteredUser(long id, [Bind("Id,Name,Surname,Password,Phone,Email,BirthDate,IsBlocked,Role")] RegisteredUsers registeredUsers)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id != registeredUsers.Id)
             {
                 return NotFound();
@@ -156,6 +161,7 @@ namespace smart_table.Controllers
         // GET: RegisteredUsers/Delete/5
         public async Task<IActionResult> DeleteRegisteredUser(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -177,6 +183,7 @@ namespace smart_table.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRegisteredUser(long id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             var registeredUsers = await _context.RegisteredUsers.FindAsync(id);
             _context.RegisteredUsers.Remove(registeredUsers);
             await _context.SaveChangesAsync();
