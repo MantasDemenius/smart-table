@@ -29,6 +29,8 @@ namespace smart_table
 
             services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(Configuration["ConnectionStrings:TestBD"]));
             services.AddScoped<DataBaseContext>();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +48,7 @@ namespace smart_table
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

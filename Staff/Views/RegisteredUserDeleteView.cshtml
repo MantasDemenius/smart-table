@@ -1,0 +1,16 @@
+﻿@model smart_table.Models.RegisteredUsers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Ištrinti padavėja";
+}
+
+<h3>Ar tikrai norite ištrinti naudotoją @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h3>
+
+<div>
+    <form asp-action="DeleteRegisteredUser">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Taip" class="btn btn-primary" /> |
+        <a asp-action="OpenManageRegisteredUsersView" class="btn btn-secondary">Ne</a>
+    </form>
+</div>
