@@ -9,18 +9,23 @@
 
 @foreach (var item in Model)
 {
-    <div style="text-align:-webkit-center;">
-        <div class="card" style="width: 56%; text-align:justify;">
-            @*<h5 class="card-header py-md-4">@Html.DisplayFor(modelItem => item.FkMenusNavigation.Title)</h5>*@
-            <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.FkDishesNavigation.Id">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Description)</h6>
-                <p class="card-text text-primary">€@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</p>
-                @*<a href="#" class="card-link">Card link</a>*@
-                @*<a href="#" class="card-link">Another link</a>*@
-            </a>
+    @if ((item.FkMenusNavigation.TimeFrom <= DateTime.Now.TimeOfDay && item.FkMenusNavigation.TimeUntil >= DateTime.Now.TimeOfDay) 
+        || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
+    {
+        <div style="text-align:-webkit-center;">
+            <div class="card" style="width: 56%; text-align:justify;">
+                @*<h5 class="card-header py-md-4">@Html.DisplayFor(modelItem => item.FkMenusNavigation.Title)</h5>*@
+                <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.FkDishesNavigation.Id">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Description)</h6>
+                    <p class="card-text text-primary">€@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</p>
+                    @*<a href="#" class="card-link">Card link</a>*@
+                    @*<a href="#" class="card-link">Another link</a>*@
+                </a>
+            </div>
         </div>
-    </div>
+    }
+
 }
 @*<table class="table table-striped">*@
 @*<thead>
