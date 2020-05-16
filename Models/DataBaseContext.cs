@@ -1,5 +1,6 @@
 #region Using
 using System;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 #endregion
@@ -469,7 +470,19 @@ namespace smart_table.Models.DataBase
                     Phone = "",
                     Email = "",
                     BirthDate = DateTime.Parse("2001-01-01"),
-                    IsBlocked = true,
+                    IsBlocked = false,
+                    Role = 2
+                },
+                new RegisteredUsers
+                {
+                    Id = 3,
+                    Name = "User3",
+                    Surname = "User3",
+                    Password = "Secret123",
+                    Phone = "",
+                    Email = "",
+                    BirthDate = DateTime.Parse("2002-01-01"),
+                    IsBlocked = false,
                     Role = 2
                 });
             modelBuilder.Entity<Ingredients>().HasData(
@@ -586,6 +599,17 @@ namespace smart_table.Models.DataBase
                     FkBills = 2,
                     FkRegisteredUsers = 2,
                     FkCustomerTables = 2
+                },
+                new Orders
+                {
+                    Id = 3,
+                    DateTime = DateTime.Parse("2020-05-16"),
+                    Temperature = 19,
+                    Submitted = true,
+                    Served = false,
+                    FkBills = null,
+                    FkRegisteredUsers = null,
+                    FkCustomerTables = 1
                 }
                 );
                 
