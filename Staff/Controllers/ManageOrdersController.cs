@@ -31,8 +31,9 @@ namespace smart_table.Staff.Controllers
         }
 
         // GET: ManageOrders/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> OpenOrderView(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -48,7 +49,7 @@ namespace smart_table.Staff.Controllers
                 return NotFound();
             }
 
-            return View(orders);
+            return View(_viewsPath + "OrderView.cshtml", orders);
         }
 
         // GET: ManageOrders/Create

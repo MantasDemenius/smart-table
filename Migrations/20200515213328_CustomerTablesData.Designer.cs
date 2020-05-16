@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200515213328_CustomerTablesData")]
+    partial class CustomerTablesData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -509,29 +511,6 @@ namespace smart_table.Migrations
                     b.HasIndex("FkOrders");
 
                     b.ToTable("order_dishes");
-
-                    b.HasData(
-                        new
-                        {
-                            FkDishes = 1L,
-                            FkOrders = 1L,
-                            Comment = "Viena pica be pado",
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            FkDishes = 2L,
-                            FkOrders = 1L,
-                            Comment = "Be cukraus",
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            FkDishes = 1L,
-                            FkOrders = 2L,
-                            Comment = "",
-                            Quantity = 1
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.Orders", b =>
@@ -581,30 +560,6 @@ namespace smart_table.Migrations
                     b.HasIndex("FkRegisteredUsers");
 
                     b.ToTable("orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DateTime = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkBills = 1L,
-                            FkCustomerTables = 1L,
-                            FkRegisteredUsers = 2L,
-                            Served = true,
-                            Submitted = true,
-                            Temperature = 15.0
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkBills = 2L,
-                            FkCustomerTables = 2L,
-                            FkRegisteredUsers = 2L,
-                            Served = false,
-                            Submitted = true,
-                            Temperature = 17.0
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.RegisteredUsers", b =>
