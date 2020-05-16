@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace smart_table.Customer.Controllers
     public class DishController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "~/Customer/Views/Dish/";
 
         public DishController(DataBaseContext context)
         {
@@ -27,8 +29,9 @@ namespace smart_table.Customer.Controllers
         }
 
         // GET: Dish/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> openDishView(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -42,7 +45,7 @@ namespace smart_table.Customer.Controllers
                 return NotFound();
             }
 
-            return View(dishes);
+            return View(_viewsPath + "DishView.cshtml", dishes);
         }
 
         // GET: Dish/Create

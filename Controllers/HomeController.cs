@@ -45,7 +45,7 @@ namespace smart_table.Controllers
         public IActionResult ConnectAsCustomer()
         {
             HttpContext.Session.SetInt32("user_role", 3);
-            return Redirect("~/ManageRegisteredUsers");
+            return Redirect("~/Menu");
         }
 
         public IActionResult Privacy()

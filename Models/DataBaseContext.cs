@@ -514,6 +514,16 @@ namespace smart_table.Models.DataBase
                     Calories = -1,
                     Discount = 0,
                     FkDishCategories = 2
+                },
+                new Dishes
+                {
+                    Id = 3,
+                    Title = "Arbata",
+                    Description = "Zalioji arbata, rytine",
+                    Price = 1,
+                    Calories = 20,
+                    Discount = 0,
+                    FkDishCategories = 2
                 });
             
             modelBuilder.Entity<Bills>().HasData(
@@ -646,9 +656,75 @@ namespace smart_table.Models.DataBase
                     Type = 3,
                     FkOrders = 2
                 });
+
+            modelBuilder.Entity<Menus>().HasData(
+                new Menus
+                {
+                    Id = 1,
+                    Title = "Pusryciu meniu",
+                    Mon = true,
+                    Tue = true,
+                    Wed = true,
+                    Thu = true,
+                    Fri = true,
+                    Sat = true,
+                    Sun = true,
+                    TimeFrom = new TimeSpan(6,0,0),
+                    TimeUntil = new TimeSpan(10,0,0),
+                    DateFrom = null, //new DateTime(2020,1,1), Constantly showing
+                    DateUntil = null,    //new DateTime(2030,1,1), Constantly showing
+                    IsActive = true
+                },
+                new Menus
+                {
+                    Id = 2,
+                    Title = "Pagrindinis meniu",
+                    Mon = true,
+                    Tue = true,
+                    Wed = true,
+                    Thu = true,
+                    Fri = true,
+                    Sat = true,
+                    Sun = true,
+                    TimeFrom = null,    //new TimeSpan(6, 0, 0),
+                    TimeUntil = null,   //new TimeSpan(10, 0, 0),
+                    DateFrom = null,    //new DateTime(2020, 1, 1),
+                    DateUntil = null,   //new DateTime(2030, 1, 1),
+                    IsActive = true
+                });
+
+            modelBuilder.Entity<MenuDishes>().HasData(
+                new MenuDishes
+                {
+                    FkDishes = 1,
+                    FkMenus = 1
+                },
+                new MenuDishes
+                {
+                    FkDishes = 2,
+                    FkMenus = 1
+                },
+                new MenuDishes
+                {
+                    FkDishes = 3,
+                    FkMenus = 1
+                },
+                new MenuDishes
+                {
+                    FkDishes = 1,
+                    FkMenus = 2
+                },
+                new MenuDishes
+                {
+                    FkDishes = 2,
+                    FkMenus = 2
+                });
+
+
             OnModelCreatingPartial(modelBuilder);
         }
 
+        
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

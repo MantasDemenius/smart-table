@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200516093301_Menu_Food_Data")]
+    partial class Menu_Food_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,7 +297,7 @@ namespace smart_table.Migrations
                         {
                             Id = 3L,
                             Calories = 20,
-                            Description = "Zalioji arbata, rytine",
+                            Description = "Þalioji arbata, rytinë",
                             Discount = 0.0,
                             FkDishCategories = 2L,
                             Price = 1.0,
@@ -326,22 +328,22 @@ namespace smart_table.Migrations
                         new
                         {
                             Id = 1L,
-                            Name = "Saskaita"
+                            Name = "bill_request"
                         },
                         new
                         {
                             Id = 2L,
-                            Name = "Atsaukimas"
+                            Name = "cancel_order"
                         },
                         new
                         {
                             Id = 3L,
-                            Name = "Klientas"
+                            Name = "new_customer"
                         },
                         new
                         {
                             Id = 4L,
-                            Name = "Uzsakymas"
+                            Name = "new_order"
                         });
                 });
 
@@ -368,32 +370,6 @@ namespace smart_table.Migrations
                     b.HasIndex("Type");
 
                     b.ToTable("events");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            FkOrders = 1L,
-                            Type = 3L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            FkOrders = 1L,
-                            Type = 4L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            FkOrders = 1L,
-                            Type = 1L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            FkOrders = 1L,
-                            Type = 3L
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.Ingredients", b =>
