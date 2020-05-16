@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200516093235_Menu_Data")]
+    partial class Menu_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,7 +297,7 @@ namespace smart_table.Migrations
                         {
                             Id = 3L,
                             Calories = 20,
-                            Description = "Zalioji arbata, rytine",
+                            Description = "Þalioji arbata, rytinë",
                             Discount = 0.0,
                             FkDishCategories = 2L,
                             Price = 1.0,
@@ -425,33 +427,6 @@ namespace smart_table.Migrations
                     b.HasIndex("FkMenus");
 
                     b.ToTable("menu_dishes");
-
-                    b.HasData(
-                        new
-                        {
-                            FkDishes = 1L,
-                            FkMenus = 1L
-                        },
-                        new
-                        {
-                            FkDishes = 2L,
-                            FkMenus = 1L
-                        },
-                        new
-                        {
-                            FkDishes = 3L,
-                            FkMenus = 1L
-                        },
-                        new
-                        {
-                            FkDishes = 1L,
-                            FkMenus = 2L
-                        },
-                        new
-                        {
-                            FkDishes = 2L,
-                            FkMenus = 2L
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.Menus", b =>

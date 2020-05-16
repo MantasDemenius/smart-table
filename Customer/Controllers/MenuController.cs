@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +14,21 @@ namespace smart_table.Customer.Controllers
     public class MenuController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "~/Customer/Views/Menu/";
 
         public MenuController(DataBaseContext context)
         {
             _context = context;
         }
 
+
         // GET: Menu
-        public async Task<IActionResult> Index()
+        [Route("Menu")]
+        public async Task<IActionResult> openMainMenuView()
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             var dataBaseContext = _context.MenuDishes.Include(m => m.FkDishesNavigation).Include(m => m.FkMenusNavigation);
-            return View(await dataBaseContext.ToListAsync());
+            return View(_viewsPath + "MainMenuView.cshtml", await dataBaseContext.ToListAsync());
         }
 
         // GET: Menu/Details/5
