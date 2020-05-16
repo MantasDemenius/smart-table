@@ -19,10 +19,22 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             @{
+                                if ((int)ViewData["user_role"] == 2)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-item nav-link" asp-area="" asp-controller="Notifications" asp-action="OpenNotificationsView">Įvykių valdymas</a>
+                                    </li>
+                                }
+                                if ((int)ViewData["user_role"] == 2)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-item nav-link" asp-area="" asp-controller="ViewTables" asp-action="OpenViewTablesView">Stalų peržiūra</a>
+                                    </li>
+                                }
                                 if ((int)ViewData["user_role"] == 1 || (int)ViewData["user_role"] == 2)
                                 {
                                     <li class="nav-item">
-                                                                    <a class="nav-item nav-link" asp-area="" asp-controller="ManageOrders" asp-action="OpenManageOrdersView">Užsakymų valdymas</a>
+                                        <a class="nav-item nav-link" asp-area="" asp-controller="ManageOrders" asp-action="OpenManageOrdersView">Užsakymų valdymas</a>
                                     </li>
                                 }
 

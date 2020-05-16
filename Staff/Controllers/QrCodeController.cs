@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +10,22 @@ using smart_table.Models.DataBase;
 
 namespace smart_table.Staff.Controllers
 {
-    public class ViewTablesController : Controller
+    public class QrCodeController : Controller
     {
         private readonly DataBaseContext _context;
-        private string _viewsPath = "Staff/Views/";
 
-        public ViewTablesController(DataBaseContext context)
+        public QrCodeController(DataBaseContext context)
         {
             _context = context;
         }
 
-        // GET: ViewTables
-        public async Task<IActionResult> OpenViewTablesView()
+        // GET: QrCode
+        public async Task<IActionResult> Index()
         {
-            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
-            return View(_viewsPath + "TableListView.cshtml", await _context.CustomerTables.ToListAsync());
+            return View(await _context.CustomerTables.ToListAsync());
         }
 
-        // GET: ViewTables/Details/5
+        // GET: QrCode/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -46,13 +43,13 @@ namespace smart_table.Staff.Controllers
             return View(customerTables);
         }
 
-        // GET: ViewTables/Create
+        // GET: QrCode/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ViewTables/Create
+        // POST: QrCode/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -68,7 +65,7 @@ namespace smart_table.Staff.Controllers
             return View(customerTables);
         }
 
-        // GET: ViewTables/Edit/5
+        // GET: QrCode/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -84,7 +81,7 @@ namespace smart_table.Staff.Controllers
             return View(customerTables);
         }
 
-        // POST: ViewTables/Edit/5
+        // POST: QrCode/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -119,7 +116,7 @@ namespace smart_table.Staff.Controllers
             return View(customerTables);
         }
 
-        // GET: ViewTables/Delete/5
+        // GET: QrCode/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -137,7 +134,7 @@ namespace smart_table.Staff.Controllers
             return View(customerTables);
         }
 
-        // POST: ViewTables/Delete/5
+        // POST: QrCode/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

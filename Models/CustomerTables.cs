@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace smart_table.Models
 {
@@ -10,9 +11,14 @@ namespace smart_table.Models
             Orders = new HashSet<Orders>();
         }
 
+        [Display(Name = "ID")]
         public long Id { get; set; }
+
+        [Display(Name = "Vietų skaičius")]
         public int SeatsCount { get; set; }
         public string QrCode { get; set; }
+
+        [Display(Name = "Užimtas")]
         public bool IsTaken { get; set; }
         public string JoinCode { get; set; }
 
