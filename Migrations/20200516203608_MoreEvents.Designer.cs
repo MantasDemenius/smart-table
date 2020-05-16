@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200516203608_MoreEvents")]
+    partial class MoreEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -404,7 +406,7 @@ namespace smart_table.Migrations
                         {
                             Id = 6L,
                             FkOrders = 3L,
-                            Type = 3L
+                            Type = 4L
                         });
                 });
 
@@ -705,7 +707,7 @@ namespace smart_table.Migrations
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 2L,
                             FkCustomerTables = 2L,
-                            FkRegisteredUsers = 3L,
+                            FkRegisteredUsers = 2L,
                             Served = false,
                             Submitted = true,
                             Temperature = 17.0

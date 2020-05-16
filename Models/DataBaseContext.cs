@@ -597,7 +597,7 @@ namespace smart_table.Models.DataBase
                     Submitted = true,
                     Served = false,
                     FkBills = 2,
-                    FkRegisteredUsers = 2,
+                    FkRegisteredUsers = 3,
                     FkCustomerTables = 2
                 },
                 new Orders
@@ -679,6 +679,18 @@ namespace smart_table.Models.DataBase
                     Id = 4,
                     Type = 3,
                     FkOrders = 2
+                },
+                new Events
+                {
+                    Id = 5,
+                    Type = 4,
+                    FkOrders = 2
+                },
+                new Events
+                {
+                    Id = 6,
+                    Type = 3,
+                    FkOrders = 3
                 });
 
             modelBuilder.Entity<Menus>().HasData(

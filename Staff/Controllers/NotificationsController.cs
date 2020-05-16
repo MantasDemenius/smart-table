@@ -28,8 +28,8 @@ namespace smart_table.Staff.Controllers
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             var dataBaseContext = _context.Events
                 .Include(o => o.FkOrdersNavigation)
-                .Include(o => o.TypeNavigation);
-            
+                .Include(o => o.TypeNavigation)
+                .Where(o => (o.FkOrdersNavigation.FkRegisteredUsers == HttpContext.Session.GetInt32("user_id")) || (o.FkOrdersNavigation.FkRegisteredUsers == null));
             return View(_viewsPath + "ManageEventsView.cshtml", await dataBaseContext.ToListAsync());
         }
 
