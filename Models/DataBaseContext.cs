@@ -519,7 +519,7 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 3,
                     Title = "Arbata",
-                    Description = "Þalioji arbata, rytinë",
+                    Description = "Zalioji arbata, rytine",
                     Price = 1,
                     Calories = 20,
                     Discount = 0,
@@ -634,7 +634,8 @@ namespace smart_table.Models.DataBase
             modelBuilder.Entity<Menus>().HasData(
                 new Menus
                 {
-                    Title = "Pusryèiø meniu",
+                    Id = 1,
+                    Title = "Pusryciu meniu",
                     Mon = true,
                     Tue = true,
                     Wed = true,
@@ -650,6 +651,7 @@ namespace smart_table.Models.DataBase
                 },
                 new Menus
                 {
+                    Id = 2,
                     Title = "Pagrindinis meniu",
                     Mon = true,
                     Tue = true,
@@ -691,7 +693,7 @@ namespace smart_table.Models.DataBase
                     FkDishes = 2,
                     FkMenus = 2
                 });
-            
+
             OnModelCreatingPartial(modelBuilder);
         }
 
