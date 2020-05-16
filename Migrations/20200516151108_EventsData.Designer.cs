@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200516151108_EventsData")]
+    partial class EventsData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -316,22 +318,22 @@ namespace smart_table.Migrations
                         new
                         {
                             Id = 1L,
-                            Name = "Saskaita"
+                            Name = "Saskaitos prasymas"
                         },
                         new
                         {
                             Id = 2L,
-                            Name = "Atsaukimas"
+                            Name = "Uzsakymas atsauktas"
                         },
                         new
                         {
                             Id = 3L,
-                            Name = "Klientas"
+                            Name = "Naujas klientas"
                         },
                         new
                         {
                             Id = 4L,
-                            Name = "Uzsakymas"
+                            Name = "Naujas uzsakymas"
                         });
                 });
 

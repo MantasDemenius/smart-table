@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace smart_table.Staff.Controllers
     public class NotificationsController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "Staff/Views/";
 
         public NotificationsController(DataBaseContext context)
         {
@@ -20,10 +22,15 @@ namespace smart_table.Staff.Controllers
         }
 
         // GET: Notifications
-        public async Task<IActionResult> Index()
+        [Route("Notifications")]
+        public async Task<IActionResult> OpenNotificationsView()
         {
-            var dataBaseContext = _context.Orders.Include(o => o.FkBillsNavigation).Include(o => o.FkCustomerTablesNavigation).Include(o => o.FkRegisteredUsersNavigation);
-            return View(await dataBaseContext.ToListAsync());
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            var dataBaseContext = _context.Events
+                .Include(o => o.FkOrdersNavigation)
+                .Include(o => o.TypeNavigation);
+            
+            return View(_viewsPath + "ManageEventsView.cshtml", await dataBaseContext.ToListAsync());
         }
 
         // GET: Notifications/Details/5

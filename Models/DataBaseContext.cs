@@ -417,22 +417,22 @@ namespace smart_table.Models.DataBase
                 new EventType
                 {
                     Id = 1,
-                    Name = "bill_request"
+                    Name = "Saskaita"
                 },
                 new EventType
                 {
                     Id = 2,
-                    Name = "cancel_order"
+                    Name = "Atsaukimas"
                 },
                 new EventType
                 {
                     Id = 3,
-                    Name = "new_customer"
+                    Name = "Klientas"
                 },
                 new EventType
                 {
                     Id = 4,
-                    Name = "new_order"
+                    Name = "Uzsakymas"
                 }
                 );
 
@@ -620,6 +620,32 @@ namespace smart_table.Models.DataBase
                     Comment = ""
                 }
                 );
+            
+            modelBuilder.Entity<Events>().HasData(
+                new Events
+                {
+                    Id = 1,
+                    Type = 3,
+                    FkOrders = 1
+                },
+                new Events
+                {
+                    Id = 2,
+                    Type = 4,
+                    FkOrders = 1
+                },
+                new Events
+                {
+                    Id = 3,
+                    Type = 1,
+                    FkOrders = 1
+                },
+                new Events
+                {
+                    Id = 4,
+                    Type = 3,
+                    FkOrders = 2
+                });
             OnModelCreatingPartial(modelBuilder);
         }
 

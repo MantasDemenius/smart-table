@@ -31,13 +31,15 @@ namespace smart_table.Controllers
         public IActionResult ConnectAsAdmin()
         {
             HttpContext.Session.SetInt32("user_role", 1);
+            HttpContext.Session.SetInt32("user_id", 1);
             return Redirect("~/ManageRegisteredUsers");
         }
 
         public IActionResult ConnectAsWaiter()
         {
             HttpContext.Session.SetInt32("user_role", 2);
-            return Redirect("~/ManageRegisteredUsers");
+            HttpContext.Session.SetInt32("user_id", 2);
+            return Redirect("~/Notifications");
         }
 
         public IActionResult ConnectAsCustomer()

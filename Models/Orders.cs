@@ -32,7 +32,7 @@ namespace smart_table.Models
 
         public long FkCustomerTables { get; set; }
 
-        [Display(Name = "Sąskaita")]
+        [Display(Name = "Sąskaitos ID")]
         public virtual Bills FkBillsNavigation { get; set; }
         
         [Display(Name = "Staliukas")]
