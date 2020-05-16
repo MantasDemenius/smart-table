@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -43,12 +44,21 @@ namespace smart_table.Staff.Controllers
                 .Include(o => o.FkBillsNavigation)
                 .Include(o => o.FkCustomerTablesNavigation)
                 .Include(o => o.FkRegisteredUsersNavigation)
+                .Include(o => o.OrderDishes)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
+            foreach(var orderDish in orders.OrderDishes)
+            {
+                var dish = await _context.Dishes
+                    .FirstOrDefaultAsync(m => m.Id == orderDish.FkDishes);
+                
+            }
+            
             if (orders == null)
             {
                 return NotFound();
             }
-
+            
             return View(_viewsPath + "OrderView.cshtml", orders);
         }
 
