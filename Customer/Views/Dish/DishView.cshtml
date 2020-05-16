@@ -6,7 +6,7 @@
 }
 
 @{ 
-    double discountedPrice = (double)(Model.Price - (Model.Price * (Model.Discount / 100)));
+    double discountedPrice = Math.Round((double)(Model.Price - (Model.Price * (Model.Discount / 100))), 2);
 }
 
 
@@ -22,9 +22,13 @@
                 <p class="card-text">Ingridientai: Skanus</p>
                 @if (Model.Discount != 0)
                 {
-                    <p class="card-text text-danger">€@discountedPrice</p>
+                    <p class="card-text text-danger">€@discountedPrice<span class="text-black-50 px-sm-3"><del>@Html.DisplayFor(modelItem => modelItem.Price)</del></span></p>
                 }
-                @*<p class="card-text text-primary">€@Html.DisplayFor(modelItem => modelItem.Price)</p>*@
+                else
+                {
+                    <p class="card-text text-primary">€@Html.DisplayFor(modelItem => modelItem.Price)</p>
+                }
+                <a class="btn btn-primary" asp-controller="ManageOrder" asp-action="openOrderDishForm" asp-route-id="@Model.Id">Įtraukti prekę į užsakymą</a>
                 @*<a href="#" class="card-link">Card link</a>*@
                 @*<a href="#" class="card-link">Another link</a>*@
             </div>

@@ -5,67 +5,28 @@
     ViewData["Title"] = "Meniu";
 }
 
-
-
 @foreach (var item in Model)
 {
-    @if ((item.FkMenusNavigation.TimeFrom <= DateTime.Now.TimeOfDay && item.FkMenusNavigation.TimeUntil >= DateTime.Now.TimeOfDay) 
-        || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
+
+    @if ((item.FkMenusNavigation.TimeFrom <= DateTime.Now.TimeOfDay && item.FkMenusNavigation.TimeUntil >= DateTime.Now.TimeOfDay)
+      || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
     {
+        double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
         <div style="text-align:-webkit-center;">
             <div class="card" style="width: 56%; text-align:justify;">
-                @*<h5 class="card-header py-md-4">@Html.DisplayFor(modelItem => item.FkMenusNavigation.Title)</h5>*@
                 <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.FkDishesNavigation.Id">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Description)</h6>
-                    <p class="card-text text-primary">€@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</p>
-                    @*<a href="#" class="card-link">Card link</a>*@
-                    @*<a href="#" class="card-link">Another link</a>*@
+                    @if (item.FkDishesNavigation.Discount != 0)
+                    {
+                        <p class="card-text text-danger">€@discountedPrice<span class="text-black-50 px-sm-3"><del>@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</del></span></p>
+                    }
+                    else
+                    {
+                        <p class="card-text text-primary">€@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</p>
+                    }
                 </a>
             </div>
         </div>
     }
 }
-@*<table class="table table-striped">*@
-@*<thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateUntil)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FkDishesNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FkMenusNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>*@
-@*<tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateFrom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateUntil)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FkMenusNavigation.Title)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
