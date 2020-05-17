@@ -26,22 +26,31 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatsCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsTaken)
-            </td>
-            <td>
-                <a asp-controller="UnlockTable" asp-action="UnlockTable" asp-route-id="@item.Id">Atrakinti</a> |
-                <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.Id">Prisiskirti</a> |
-                <a asp-controller="QrCode" asp-action="DownloadQrCode" asp-route-id="@item.Id">QR kodas</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatsCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsTaken)
+                </td>
+                <td>
+                    <a asp-controller="UnlockTable" asp-action="UnlockTable" asp-route-id="@item.Id">Atrakinti</a> |
+                    <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.Id">Prisiskirti</a> |
+                    <a asp-controller="QrCodeStaff" asp-action="downloadQrCode" asp-route-id="@item.Id">QR kodas</a>
+                </td>
+                @*<td>
+                    @{
+                        if (item. != null)
+                        {
+                            <h3>QR Code Successfully Generated</h3>
+                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model))" />
+                        }
+                    }
+                </td>*@
+            </tr>
         }
     </tbody>
 </table>

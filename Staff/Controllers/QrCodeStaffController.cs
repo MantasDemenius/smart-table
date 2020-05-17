@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using smart_table.Models;
 using smart_table.Models.DataBase;
+using QRCoder;
+using System.Drawing;
+using System.IO;
 
 namespace smart_table.Staff.Controllers
 {
@@ -40,20 +43,34 @@ namespace smart_table.Staff.Controllers
             {
                 return NotFound();
             }
+            Byte[] QRcode = createQrCode(id);
             //private string _viewsPath = "~/Staff/Views/QrCodeStaff/";
             //Depends on who asks
-            return View("~/Staff/Views/" + "TableListView.cshtml", customerTables);
+            //ViewData["qrcode"] = QRcode;
+            var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.ToListAsync(), QRcode);
+            return View("~/Staff/Views/QrCodeStaff/" + "Details.cshtml", dataTuple);
         }
 
-        //private async Task<IActionResult> createQrCode(long? id)
-        //{
+        private static Byte[] createQrCode(long? id)
+        {
+            string qrText = $"http://localhost:65312/QrCode/{id}";
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrText, QRCodeGenerator.ECCLevel.Q);
+            
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
 
-        //}
+            return makePdfDocument(qrCodeImage);
+        }
 
-        //private async Task<IActionResult> makePdfDocument()
-        //{
-
-        //}
+        private static Byte[] makePdfDocument(Bitmap img)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
 
 
 
