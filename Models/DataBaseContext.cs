@@ -618,7 +618,7 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 1,
                     SeatsCount = 6,
-                    QrCode = "ABC",
+                    QrCode = "http://localhost:65312/QrCode/1", //Kazksa panasaus
                     IsTaken = true,
                     JoinCode = "DEF"
                 },
@@ -626,7 +626,7 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 2,
                     SeatsCount = 4,
-                    QrCode = "qrt",
+                    QrCode = "http://localhost:65312/QrCode/2", //Kazkas panasaus
                     IsTaken = false,
                     JoinCode = "wxz"
                 }

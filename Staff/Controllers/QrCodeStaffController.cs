@@ -10,11 +10,12 @@ using smart_table.Models.DataBase;
 
 namespace smart_table.Staff.Controllers
 {
-    public class QrCodeController : Controller
+    public class QrCodeStaffController : Controller
     {
         private readonly DataBaseContext _context;
+        
 
-        public QrCodeController(DataBaseContext context)
+        public QrCodeStaffController(DataBaseContext context)
         {
             _context = context;
         }
@@ -26,7 +27,7 @@ namespace smart_table.Staff.Controllers
         }
 
         // GET: QrCode/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> downloadQrCode(long? id)
         {
             if (id == null)
             {
@@ -39,9 +40,22 @@ namespace smart_table.Staff.Controllers
             {
                 return NotFound();
             }
-
-            return View(customerTables);
+            //private string _viewsPath = "~/Staff/Views/QrCodeStaff/";
+            //Depends on who asks
+            return View("~/Staff/Views/" + "TableListView.cshtml", customerTables);
         }
+
+        //private async Task<IActionResult> createQrCode(long? id)
+        //{
+
+        //}
+
+        //private async Task<IActionResult> makePdfDocument()
+        //{
+
+        //}
+
+
 
         // GET: QrCode/Create
         public IActionResult Create()
