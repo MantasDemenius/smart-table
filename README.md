@@ -18,7 +18,7 @@ Code first approach. Modify entities and database context, then run "dotnet ef m
 
 ## appsettings.json
 Change connection  string to suit your system, mainly password and database
-Add appsettings.json file to your tree with this structure
+Add appsettings.json and appsettings.Development.json file to your tree with this structure\n
 {
   "ConnectionStrings": {
     "TestBD": "USER ID=postgres;Password=leaveEmptyIfYouHaveNoPass;Host=127.0.0.1;Port=5432;Database=databasename;Pooling=true;"
