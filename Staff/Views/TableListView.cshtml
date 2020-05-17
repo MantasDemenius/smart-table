@@ -1,30 +1,28 @@
-﻿@model IEnumerable<smart_table.Models.CustomerTables>
+﻿@using smart_table.Models;
+@model Tuple<List<CustomerTables>, Byte[]>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Stalų peržiūra</h1>
-<h3>@ViewData["message"]</h3>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SeatsCount)
+                Vietų skaičius
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsTaken)
+                Užimtas
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Item1)
         {
             <tr>
                 <td>
@@ -40,16 +38,15 @@
                     <a asp-controller="UnlockTable" asp-action="UnlockTable" asp-route-id="@item.Id">Atrakinti</a> |
                     <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.Id">Prisiskirti</a> |
                     <a asp-controller="QrCodeStaff" asp-action="downloadQrCode" asp-route-id="@item.Id">QR kodas</a>
-                </td>
-                @*<td>
                     @{
-                        if (item. != null)
+                        if (Model.Item2 != null)
                         {
-                            <h3>QR Code Successfully Generated</h3>
-                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model))" />
+                            <a href="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" download="stalo-kodas">
+                                <img style="width:20px; height:20px;" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" />
+                            </a>
                         }
                     }
-                </td>*@
+                </td>
             </tr>
         }
     </tbody>

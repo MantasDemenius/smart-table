@@ -10,13 +10,14 @@ using smart_table.Models.DataBase;
 using QRCoder;
 using System.Drawing;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace smart_table.Staff.Controllers
 {
     public class QrCodeStaffController : Controller
     {
         private readonly DataBaseContext _context;
-        
+        private static string QRText = "http://localhost:65312/QrCode/";
 
         public QrCodeStaffController(DataBaseContext context)
         {
@@ -36,6 +37,7 @@ namespace smart_table.Staff.Controllers
             {
                 return NotFound();
             }
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
 
             var customerTables = await _context.CustomerTables
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -48,12 +50,12 @@ namespace smart_table.Staff.Controllers
             //Depends on who asks
             //ViewData["qrcode"] = QRcode;
             var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.ToListAsync(), QRcode);
-            return View("~/Staff/Views/QrCodeStaff/" + "Details.cshtml", dataTuple);
+            return View("~/Staff/Views/" + "TableListView.cshtml", dataTuple);
         }
 
         private static Byte[] createQrCode(long? id)
         {
-            string qrText = $"http://localhost:65312/QrCode/{id}";
+            string qrText = $"{QRText}{id}";
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrText, QRCodeGenerator.ECCLevel.Q);
             
