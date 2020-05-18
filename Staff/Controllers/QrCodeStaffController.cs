@@ -17,6 +17,7 @@ namespace smart_table.Staff.Controllers
     public class QrCodeStaffController : Controller
     {
         private readonly DataBaseContext _context;
+        //Change this for QRCode link generation
         private static string QRText = "http://localhost:65312/QrCode/";
 
         public QrCodeStaffController(DataBaseContext context)
@@ -39,12 +40,6 @@ namespace smart_table.Staff.Controllers
             }
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
 
-            var customerTables = await _context.CustomerTables
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customerTables == null)
-            {
-                return NotFound();
-            }
             Byte[] QRcode = createQrCode(id);
             var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.ToListAsync(), QRcode);
             return View("~/Staff/Views/" + "TableListView.cshtml", dataTuple);
@@ -59,10 +54,10 @@ namespace smart_table.Staff.Controllers
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeImage = qrCode.GetGraphic(20);
 
-            return makePdfDocument(qrCodeImage);
+            return makePNGImage(qrCodeImage);
         }
 
-        private static Byte[] makePdfDocument(Bitmap img)
+        private static Byte[] makePNGImage(Bitmap img)
         {
             using (MemoryStream stream = new MemoryStream())
             {
@@ -70,7 +65,6 @@ namespace smart_table.Staff.Controllers
                 return stream.ToArray();
             }
         }
-
 
 
         // GET: QrCode/Create
