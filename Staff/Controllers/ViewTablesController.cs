@@ -25,7 +25,8 @@ namespace smart_table.Staff.Controllers
         public async Task<IActionResult> OpenViewTablesView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
-            return View(_viewsPath + "TableListView.cshtml", await _context.CustomerTables.ToListAsync());
+            var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.ToListAsync(), null);
+            return View(_viewsPath + "TableListView.cshtml", dataTuple);
         }
 
         // GET: ViewTables/Details/5

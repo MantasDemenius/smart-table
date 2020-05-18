@@ -1,0 +1,21 @@
+﻿@using smart_table.Models;
+@model Tuple<List<CustomerTables>, Byte[]>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    if (Model != null)
+    {
+        <h3>QR Code Successfully Generated</h3>
+        <a href="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" download>
+            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" />
+        </a>
+    }
+}
+
+@foreach (var item in Model.Item1)
+{
+    @Html.DisplayFor(modelItem => item.Id)
+}
