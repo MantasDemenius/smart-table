@@ -38,16 +38,22 @@
                     <a asp-controller="UnlockTable" asp-action="UnlockTable" asp-route-id="@item.Id">Atrakinti</a> |
                     <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.Id">Prisiskirti</a> |
                     <a asp-controller="QrCodeStaff" asp-action="downloadQrCode" asp-route-id="@item.Id">QR kodas</a>
-                    @{
-                        if (Model.Item2 != null)
-                        {
-                            <a href="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" download="stalo-kodas">
-                                <img style="width:20px; height:20px;" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" />
-                            </a>
-                        }
-                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@{
+    @if (Model.Item2 != null)
+    {
+        <a hidden id="download-file" href="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" download="stalo-QR-kodas">
+            <img hidden style="width:20px; height:20px;" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Item2))" />
+        </a>
+    }
+
+    <script>
+        var a = document.getElementById("download-file");
+        a.click();
+    </script>
+}

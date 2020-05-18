@@ -46,9 +46,6 @@ namespace smart_table.Staff.Controllers
                 return NotFound();
             }
             Byte[] QRcode = createQrCode(id);
-            //private string _viewsPath = "~/Staff/Views/QrCodeStaff/";
-            //Depends on who asks
-            //ViewData["qrcode"] = QRcode;
             var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.ToListAsync(), QRcode);
             return View("~/Staff/Views/" + "TableListView.cshtml", dataTuple);
         }
