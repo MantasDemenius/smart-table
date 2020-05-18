@@ -354,7 +354,8 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkRegisteredUsersNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.FkRegisteredUsers)
-                    .HasConstraintName("fkc_registered_users");
+                    .HasConstraintName("fkc_registered_users")
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<RegisteredUsers>(entity =>
