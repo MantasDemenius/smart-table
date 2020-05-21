@@ -34,7 +34,7 @@
                 @{
                     if (item.Type == 3 && item.FkOrdersNavigation.FkRegisteredUsers == null)
                     { 
-                        <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.Id">Prisiskirti</a>
+                        <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkOrders">Prisiskirti</a>
                     } 
                 }
 
