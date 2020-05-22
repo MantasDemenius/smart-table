@@ -13,10 +13,12 @@ namespace smart_table.Customer.Controllers
     public class RecomendationController : Controller
     {
         private readonly DataBaseContext _context;
+        private readonly HydrometereologyInterface _hydrometereologyInterface;
 
         public RecomendationController(DataBaseContext context)
         {
             _context = context;
+            _hydrometereologyInterface = new HydrometereologyInterface();
         }
 
         // GET: Recomendation
