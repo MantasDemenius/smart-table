@@ -17,6 +17,8 @@ namespace smart_table.Customer.Controllers
         private readonly HydrometereologyInterface _hydrometereologyInterface;
 
         private string _viewsPath = "Customer/Views/Recomendation/";
+        private List<Dishes> selectedDishes = new List<Dishes>();
+        private List<Dishes> recommendedDishes = new List<Dishes>();
 
         public RecommendationController(DataBaseContext context)
         {
@@ -35,10 +37,27 @@ namespace smart_table.Customer.Controllers
             // and a departure from Microsoft's official recommendations.
 
             List<Dishes> discountedDishes = await GetDiscountedDishesTask();
+            addToSelectedDishes(discountedDishes);
             List<Dishes> popularDishes = await GetPopularDishesTask();
+            addToSelectedDishes(popularDishes);
             List<Dishes> matchingDishes = await GetMatchingDishesTask();
+            addToSelectedDishes(matchingDishes);
+            List<Dishes> dishesByTemperature = await GetDishesByTemperature();
+            addToSelectedDishes(dishesByTemperature);
 
-            return View(_viewsPath + "RecommendationsView.cshtml");
+            var menus = await _context.Menus.Include(m => m.MenuDishes).ToListAsync();
+            selectedDishes.ForEach(dish =>
+            {
+                var menu = menus.Find(m => m.MenuDishes.Any(md => md.FkDishes == dish.Id));
+                if (menu.IsActive)
+                {
+                    addToRecommendations(dish);
+                }
+            });
+            recommendedDishes = recommendedDishes.Distinct().ToList();
+            sortRecommendations();
+
+            return View(_viewsPath + "RecommendationsView.cshtml", recommendedDishes);
         }
 
         private Task<List<Dishes>> GetDiscountedDishesTask()
@@ -80,6 +99,50 @@ namespace smart_table.Customer.Controllers
                     .Take(2)
                     .ToListAsync();
             });
+        }
+
+        private Task<List<Dishes>> GetDishesByTemperature()
+        {
+            return Task.Run(() =>
+            {
+                int currentTemp = _hydrometereologyInterface.GetTemperature();
+                int minTemp = currentTemp - 5;
+                int maxTemp = currentTemp + 5;
+
+                var ordersByTemp = _context.Orders
+                    .Where(o => o.Temperature >= minTemp && o.Temperature <= maxTemp)
+                    .Select(o => o.Id)
+                    .ToList();
+                var dishByTempIds = _context.OrderDishes
+                    .Include(od => od.FkDishesNavigation)
+                    .Where(od => ordersByTemp.Contains(od.FkOrders))
+                    .GroupBy(od => new { od.FkDishes })
+                    .Select(g => new
+                    {
+                        g.Key.FkDishes,
+                        Sum = g.Sum(od => od.Quantity)
+                    })
+                    .OrderByDescending(od => od.Sum)
+                    .Take(2)
+                    .ToList()
+                    .Select(doc => doc.FkDishes);
+                return _context.Dishes.Where(d => dishByTempIds.Contains(d.Id)).ToListAsync();
+            });
+        }
+
+        private void addToSelectedDishes(List<Dishes> dishes)
+        {
+            selectedDishes = selectedDishes.Concat(dishes).ToList();
+        }
+
+        private void addToRecommendations(Dishes dish)
+        {
+            recommendedDishes.Add(dish);
+        }
+
+        private void sortRecommendations()
+        {
+            recommendedDishes = recommendedDishes.OrderBy(d => d.Title).ToList();
         }
 
         // GET: Recomendation/Details/5
