@@ -14,12 +14,14 @@ namespace smart_table.Customer.Controllers
     public class RecommendationController : Controller
     {
         private readonly DataBaseContext _context;
+        private readonly HydrometereologyInterface _hydrometereologyInterface;
 
         private string _viewsPath = "Customer/Views/Recomendation/";
 
         public RecommendationController(DataBaseContext context)
         {
             _context = context;
+            _hydrometereologyInterface = new HydrometereologyInterface();
         }
 
         public async Task<IActionResult> OpenRecommendationsView()
