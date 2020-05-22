@@ -27,6 +27,7 @@ namespace smart_table.Customer.Controllers
         public async Task<IActionResult> openMainMenuView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             var dataBaseContext = _context.MenuDishes.Include(m => m.FkDishesNavigation).Include(m => m.FkMenusNavigation);
             return View(_viewsPath + "MainMenuView.cshtml", await dataBaseContext.ToListAsync());
         }
