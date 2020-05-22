@@ -21,29 +21,29 @@
                             @{
                                 if ((int)ViewData["user_role"] == 2)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="Notifications" asp-action="OpenNotificationsView">Įvykių valdymas</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" asp-area="" asp-controller="Notifications" asp-action="OpenNotificationsView">Įvykių valdymas</a>
+                                </li>
                                 }
                                 if ((int)ViewData["user_role"] == 2)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="ViewTables" asp-action="OpenViewTablesView">Stalų peržiūra</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" asp-area="" asp-controller="ViewTables" asp-action="OpenViewTablesView">Stalų peržiūra</a>
+                                </li>
                                 }
                                 if ((int)ViewData["user_role"] == 1 || (int)ViewData["user_role"] == 2)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="ManageOrders" asp-action="OpenManageOrdersView">Užsakymų valdymas</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" asp-area="" asp-controller="ManageOrders" asp-action="OpenManageOrdersView">Užsakymų valdymas</a>
+                                </li>
                                 }
 
 
                                 if ((int)ViewData["user_role"] == 1)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="ManageRegisteredUsers" asp-action="OpenManageRegisteredUsersView">Naudotojų valdymas</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" asp-area="" asp-controller="ManageRegisteredUsers" asp-action="OpenManageRegisteredUsersView">Naudotojų valdymas</a>
+                                </li>
                                 }
                             }
 
@@ -52,6 +52,12 @@
                     </div>
                 </nav>
             </div>
+            @{
+                if ((int)ViewData["user_role"] == 3)
+                {
+                    <a class="nav-item navbar-text">Stalo kodas: @ViewData["table_code"]  </a>
+                }
+            }
             <a class="nav-item navbar-text" href="Home">Atsijungti</a>
         </nav>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">

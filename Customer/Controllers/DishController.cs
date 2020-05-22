@@ -32,6 +32,7 @@ namespace smart_table.Customer.Controllers
         public async Task<IActionResult> openDishView(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             if (id == null)
             {
                 return NotFound();
