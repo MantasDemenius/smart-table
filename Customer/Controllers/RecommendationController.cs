@@ -1,29 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using smart_table.Models;
 using smart_table.Models.DataBase;
-
 namespace smart_table.Customer.Controllers
 {
-    public class RecomendationController : Controller
+    public class RecommendationController : Controller
     {
         private readonly DataBaseContext _context;
 
-        public RecomendationController(DataBaseContext context)
+        private string _viewsPath = "Customer/Views/Recomendation/";
+
+        public RecommendationController(DataBaseContext context)
         {
             _context = context;
         }
 
-        // GET: Recomendation
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> OpenRecommendationsView()
         {
-            var dataBaseContext = _context.Dishes.Include(d => d.FkDishCategoriesNavigation);
-            return View(await dataBaseContext.ToListAsync());
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+
+            // https://stackoverflow.com/questions/44063832/what-is-the-best-practice-in-ef-core-for-using-parallel-async-calls-with-an-inje
+            // <...> abandoning Dependency Injection
+            // which would create development overhead/maintenance debt,
+            // potential for bugs if handled wrong,
+            // and a departure from Microsoft's official recommendations.
+
+            List<Dishes> discountedDishes = await GetDiscountedDishesTask();
+            List<Dishes> popularDishes = await GetPopularDishesTask();
+            List<Dishes> matchingDishes = await GetMatchingDishesTask();
+
+            return View(_viewsPath + "RecommendationsView.cshtml");
+        }
+
+        private Task<List<Dishes>> GetDiscountedDishesTask()
+        {
+            return _context.Dishes.Where(d => d.Discount > 0).ToListAsync();
+        }
+
+        private Task<List<Dishes>> GetPopularDishesTask()
+        {
+            return Task.Run(() =>
+            {
+                var popularDishIds = _context.OrderDishes
+                    .GroupBy(od => new { od.FkDishes })
+                    .Select(g => new
+                    {
+                        g.Key.FkDishes,
+                        Sum = g.Sum(od => od.Quantity)
+                    })
+                    .OrderByDescending(od => od.Sum)
+                    .Take(2)
+                    .ToList()
+                    .Select(doc => doc.FkDishes);
+                return _context.Dishes.Where(d => popularDishIds.Contains(d.Id)).ToListAsync();
+            });
+        }
+
+        private Task<List<Dishes>> GetMatchingDishesTask()
+        {
+            return Task.Run(() =>
+            {
+                var triedCategories = _context.OrderDishes
+                    .Include(od => od.FkDishesNavigation)
+                    .Include(od => od.FkDishesNavigation.FkDishCategoriesNavigation)
+                    .ToList()
+                    .Select(o => o.FkDishesNavigation.FkDishCategories).Distinct().ToList();
+                return _context.Dishes
+                    .Where(d => !triedCategories.Contains(d.FkDishCategories))
+                    .OrderByDescending(d => d.Calories)
+                    .Take(2)
+                    .ToListAsync();
+            });
         }
 
         // GET: Recomendation/Details/5
