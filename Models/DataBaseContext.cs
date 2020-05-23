@@ -42,6 +42,7 @@ namespace smart_table.Models.DataBase
                 entity.ToTable("bills");
 
                 entity.Property(e => e.Id)
+                .HasIdentityOptions(startValue: 10)
                 .HasColumnName("id");
 
                 entity.Property(e => e.Amount).HasColumnName("amount");
@@ -326,7 +327,9 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("orders");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasIdentityOptions(startValue: 10)
+                    .HasColumnName("id");
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")

@@ -35,6 +35,7 @@ namespace smart_table.Customer.Controllers
         public IActionResult openOrderDishForm(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             HttpContext.Session.SetInt32("dish_id", Convert.ToInt32(id));
             return View(_viewsPath + "OrderDishFormView.cshtml");
         }
@@ -77,7 +78,6 @@ namespace smart_table.Customer.Controllers
                 double temperature = _hydrometereologyInterface.GetTemperature();
                 if (HttpContext.Session.GetInt32("order_id") == null) {
                     Orders order = new Orders();
-                    order.FkBillsNavigation.FkCustomerTables = (long)HttpContext.Session.GetInt32("customer_table_id");
                     order.FkBills = (long)HttpContext.Session.GetInt32("bill_id");
                     order.Temperature = temperature;
                     _context.Add(order);
