@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace smart_table.Customer.Controllers
     public class PaymentController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "~/Customer/Views/Payment/";
 
         public PaymentController(DataBaseContext context)
         {
@@ -46,10 +48,11 @@ namespace smart_table.Customer.Controllers
         }
 
         // GET: Payment/Create
-        public IActionResult Create()
+        public IActionResult openPaymentView()
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode");
-            return View();
+            return View(_viewsPath + "Payment.cshtml");
         }
 
         // POST: Payment/Create
@@ -57,8 +60,9 @@ namespace smart_table.Customer.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
+        public async Task<IActionResult> openPaymentView([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (ModelState.IsValid)
             {
                 _context.Add(bills);
@@ -66,7 +70,7 @@ namespace smart_table.Customer.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode", bills.FkDiscounts);
-            return View(bills);
+            return View(_viewsPath + "Payment.cshtml", bills);
         }
 
         // GET: Payment/Edit/5
