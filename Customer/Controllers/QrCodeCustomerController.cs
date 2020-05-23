@@ -32,6 +32,7 @@ namespace smart_table.Customer.Controllers
             }
 
             if (HttpContext.Session.GetInt32("user_role") != (int)3) {
+                HttpContext.Session.SetInt32("customer_table_id", Convert.ToInt32(id));
                 string joinCode = generateJoinCode();
                 HttpContext.Session.SetString("table_code", joinCode);
 
@@ -49,6 +50,7 @@ namespace smart_table.Customer.Controllers
 
                 _context.Add(bill);
                 _context.SaveChanges();
+                HttpContext.Session.SetInt32("bill_id", Convert.ToInt32(bill.Id));
             }
             
             HttpContext.Session.SetInt32("user_role", 3);

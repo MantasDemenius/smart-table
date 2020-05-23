@@ -2,9 +2,9 @@ namespace smart_table.Customer
 {
     public class HydrometereologyInterface
     {
-        public int GetTemperature()
+        public double GetTemperature()
         {
-            return 10;
+            return 10.0;
         }
     }
 }
