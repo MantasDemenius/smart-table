@@ -25,19 +25,17 @@ namespace smart_table.Staff.Controllers
         [Route("Notifications")]
         public async Task<IActionResult> OpenNotificationsView()
         {
-            /*
+            
             ViewData["message"] = HttpContext.Session.GetString("message");
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             HttpContext.Session.SetString("message", "");
             HttpContext.Session.SetString("previous_page", "Notifications");
 
             var dataBaseContext = _context.Events
-                .Include(o => o.FkOrdersNavigation)
-                .Include(o => o.TypeNavigation)
-                .Where(o => (o.FkOrdersNavigation.FkRegisteredUsers == HttpContext.Session.GetInt32("user_id")) || (o.FkOrdersNavigation.FkRegisteredUsers == null));
+                .Include(o => o.FkBillsNavigation)
+                .Include(o => o.TypeNavigation);
+                //.Where(o => (o.FkOrdersNavigation.FkRegisteredUsers == HttpContext.Session.GetInt32("user_id")) || (o.FkOrdersNavigation.FkRegisteredUsers == null));
             return View(_viewsPath + "ManageEventsView.cshtml", await dataBaseContext.ToListAsync());
-            */
-            return Ok();
         }
 
         // GET: Notifications/Details/5
