@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace smart_table.Staff.Controllers
     public class AssignTableController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "Staff/Views/";
 
         public AssignTableController(DataBaseContext context)
         {
@@ -47,6 +49,10 @@ namespace smart_table.Staff.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+        public IActionResult BackToPrevious()
+        {            
+            return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
         }
 
         // POST: AssignTable/Create
@@ -117,8 +123,9 @@ namespace smart_table.Staff.Controllers
         }
 
         // GET: AssignTable/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> AssignTable(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -131,13 +138,13 @@ namespace smart_table.Staff.Controllers
                 return NotFound();
             }
 
-            return View(customerTables);
+            return View(_viewsPath + "AssignTableConfirmView.cshtml", customerTables);
         }
 
         // POST: AssignTable/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> AssignTable(long id)
         {
             var customerTables = await _context.CustomerTables.FindAsync(id);
             _context.CustomerTables.Remove(customerTables);

@@ -660,6 +660,27 @@ namespace smart_table.Models.DataBase
                     Evaluation = "Malonus aptarnavimas",
                     FkDiscounts = 2,
                     FkCustomerTables = 2
+                },
+                new Bills
+                {
+                    Id = 3,
+                    DateTime = DateTime.Parse("2020-05-01"),
+                    Tips = 0,
+                    Amount = 0.00,
+                    IsPaid = false,
+                    Evaluation = "",
+                    FkDiscounts = null,
+                    FkCustomerTables = 1
+                },
+                new Bills {
+                    Id = 4,
+                    DateTime = DateTime.Parse("2020-05-01"),
+                    Tips = 0,
+                    Amount = 0.00,
+                    IsPaid = false,
+                    Evaluation = "",
+                    FkDiscounts = null,
+                    FkCustomerTables = 1
                 });
 
             modelBuilder.Entity<Orders>().HasData(
@@ -690,7 +711,7 @@ namespace smart_table.Models.DataBase
                     Temperature = 19,
                     Submitted = true,
                     Served = false,
-                    FkBills = 1,
+                    FkBills = 3,
                     FkRegisteredUsers = null
                 });
 
@@ -752,7 +773,13 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 6,
                     Type = 3,
-                    FkBills = 1
+                    FkBills = 3
+                },
+                new Events
+                { 
+                    Id = 7,
+                    Type = 3,
+                    FkBills = 4
                 });
             OnModelCreatingPartial(modelBuilder);
         }

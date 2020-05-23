@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200523114050_UpdateOrder3")]
+    partial class UpdateOrder3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,16 +97,6 @@ namespace smart_table.Migrations
                         new
                         {
                             Id = 3L,
-                            Amount = 0.0,
-                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Evaluation = "",
-                            FkCustomerTables = 1L,
-                            IsPaid = false,
-                            Tips = 0.0
-                        },
-                        new
-                        {
-                            Id = 4L,
                             Amount = 0.0,
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "",
@@ -434,12 +426,6 @@ namespace smart_table.Migrations
                         {
                             Id = 6L,
                             FkBills = 3L,
-                            Type = 3L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            FkBills = 4L,
                             Type = 3L
                         });
                 });
