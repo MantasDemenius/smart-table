@@ -1,8 +1,45 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h1>events</h1>
-</body>
-</html>
+﻿@model IEnumerable<smart_table.Models.Events>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Įvykių valdymas</h1>
+<h3>@ViewData["message"]</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeNavigation.Name)
+            </th>
+            <th>
+                Staliuko @Html.DisplayNameFor(model => model.FkBillsNavigation)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeNavigation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FkBillsNavigation)
+                </td>
+
+                <td>
+                    @{
+                        if (item.Type == 3)
+                        {
+                            <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkBills">Prisiskirti</a>
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
