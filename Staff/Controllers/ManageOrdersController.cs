@@ -23,7 +23,6 @@ namespace smart_table.Staff.Controllers
         }
 
         [Route("ManageOrders")]
-        // GET: ManageOrders
         public async Task<IActionResult> OpenManageOrdersView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -31,7 +30,6 @@ namespace smart_table.Staff.Controllers
             return View(_viewsPath + "ManageOrdersView.cshtml", await dataBaseContext.ToListAsync());
         }
 
-        // GET: ManageOrders/Details/5
         public async Task<IActionResult> OpenOrderView(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
