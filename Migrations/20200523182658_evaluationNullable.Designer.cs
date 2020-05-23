@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200523182658_evaluationNullable")]
+    partial class evaluationNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,10 +59,8 @@ namespace smart_table.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<double?>("Tips")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("tips")
-                        .HasColumnType("double precision")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 

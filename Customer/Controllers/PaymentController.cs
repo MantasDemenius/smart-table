@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -51,8 +52,37 @@ namespace smart_table.Customer.Controllers
         public IActionResult openPaymentView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            var tableId = HttpContext.Session.GetInt32("customer_table_id");
+            tableId = 3; // Istrinti kai bus padaryta prideti i orderi!!!!!!!
+            if (tableId == null)
+            {
+                return NotFound();
+            }
+            
             ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode");
-            return View(_viewsPath + "Payment.cshtml");
+
+            var bill = _context.Bills
+                .FirstOrDefault(m => m.Id == tableId);
+
+            if (bill == null)
+            {
+                return NotFound();
+            }
+
+            var billOrders = _context.OrderDishes
+                .Include(d => d.FkDishesNavigation)
+                .Include(o => o.FkOrdersNavigation)
+                .Where(dob => dob.FkOrdersNavigation.FkBills == bill.Id)
+                .Select(s => new
+                {
+                    Price = s.FkDishesNavigation.Price * s.Quantity,
+                }).ToList();
+
+            var amount = billOrders.Aggregate(0.0, (acc, x) => acc + x.Price);
+
+            bill.Amount = amount;
+
+            return View(_viewsPath + "Payment.cshtml", bill);
         }
 
         // POST: Payment/Create
@@ -60,34 +90,41 @@ namespace smart_table.Customer.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> openPaymentView([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
+        public async Task<IActionResult> submitPayment([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
-            if (ModelState.IsValid)
+
+            if (ModelState.IsValid && validatePayment(bills))
             {
-                _context.Add(bills);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    bills.IsPaid = true;
+                    _context.Update(bills);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BillsExists(bills.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                ViewData["message"] = "Sąskaita sėkmingai sumokėta!";
+                return View(_viewsPath + "Payment.cshtml", bills);
             }
+
+            ViewData["message"] = "Prastai užpildyti laukai";
             ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode", bills.FkDiscounts);
             return View(_viewsPath + "Payment.cshtml", bills);
         }
 
-        // GET: Payment/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        private bool validatePayment(Bills bill)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var bills = await _context.Bills.FindAsync(id);
-            if (bills == null)
-            {
-                return NotFound();
-            }
-            ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode", bills.FkDiscounts);
-            return View(bills);
+            return bill.IsPaid == false && bill.Amount > 0 && bill.Evaluation.Length < 255 && bill.Tips >= 0;
         }
 
         // POST: Payment/Edit/5
