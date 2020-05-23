@@ -18,7 +18,7 @@ namespace smart_table.Staff.Controllers
     {
         private readonly DataBaseContext _context;
         //Change this for QRCode link generation
-        private static string QRText = "http://localhost:65312/QrCode/";
+        private static string QRText = "http://localhost:65312/TakeTable?id=";
 
         public QrCodeStaffController(DataBaseContext context)
         {
