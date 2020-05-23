@@ -98,7 +98,10 @@ namespace smart_table.Customer.Controllers
             {
                 try
                 {
-                    bills.IsPaid = true;
+                    Events events = new Events();
+                    events.Type = 1;
+                    events.FkBills = bills.Id;
+                    _context.Add(events);
                     _context.Update(bills);
                     await _context.SaveChangesAsync();
                 }
@@ -113,7 +116,7 @@ namespace smart_table.Customer.Controllers
                         throw;
                     }
                 }
-                ViewData["message"] = "Sąskaita sėkmingai sumokėta!";
+                ViewData["message"] = "Padavėjas buvo pakviestas, palaukite";
                 return View(_viewsPath + "Payment.cshtml", bills);
             }
 
@@ -124,7 +127,7 @@ namespace smart_table.Customer.Controllers
 
         private bool validatePayment(Bills bill)
         {
-            return bill.IsPaid == false && bill.Amount > 0 && bill.Evaluation.Length < 255 && bill.Tips >= 0;
+            return bill.IsPaid == false && bill.Amount > 0 && bill.Tips >= 0;
         }
 
         // POST: Payment/Edit/5

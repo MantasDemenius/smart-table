@@ -41,7 +41,8 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("bills");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                .HasColumnName("id");
 
                 entity.Property(e => e.Amount).HasColumnName("amount");
 
@@ -186,7 +187,9 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("events");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                .HasIdentityOptions(startValue: 10)
+                .HasColumnName("id");
 
                 entity.Property(e => e.FkBills).HasColumnName("fk_bills");
 
@@ -948,6 +951,13 @@ namespace smart_table.Models.DataBase
                     FkOrders = 2,
                     Quantity = 1,
                     Comment = ""
+                },
+                new OrderDishes
+                {
+                    FkDishes = 11,
+                    FkOrders = 3,
+                    Quantity = 1,
+                    Comment = ""
                 });
 
             modelBuilder.Entity<Events>().HasData(
@@ -993,6 +1003,7 @@ namespace smart_table.Models.DataBase
                     Type = 3,
                     FkBills = 4
                 });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
