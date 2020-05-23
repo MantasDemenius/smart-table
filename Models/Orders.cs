@@ -8,7 +8,6 @@ namespace smart_table.Models
     {
         public Orders()
         {
-            Events = new HashSet<Events>();
             OrderDishes = new HashSet<OrderDishes>();
         }
 
@@ -40,7 +39,6 @@ namespace smart_table.Models
         
         [Display(Name = "Padavėjas")]
         public virtual RegisteredUsers FkRegisteredUsersNavigation { get; set; }
-        public virtual ICollection<Events> Events { get; set; }
         public virtual ICollection<OrderDishes> OrderDishes { get; set; }
     }
 }

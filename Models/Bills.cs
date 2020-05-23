@@ -7,6 +7,7 @@ namespace smart_table.Models
     {
         public Bills()
         {
+            Events = new HashSet<Events>();
             Orders = new HashSet<Orders>();
         }
 
@@ -20,5 +21,6 @@ namespace smart_table.Models
 
         public virtual Discounts FkDiscountsNavigation { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Events> Events { get; set; }
     }
 }

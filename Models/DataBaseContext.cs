@@ -187,15 +187,15 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.FkOrders).HasColumnName("fk_orders");
+                entity.Property(e => e.FkBills).HasColumnName("fk_bills");
 
                 entity.Property(e => e.Type).HasColumnName("type");
 
-                entity.HasOne(d => d.FkOrdersNavigation)
+                entity.HasOne(d => d.FkBillsNavigation)
                     .WithMany(p => p.Events)
-                    .HasForeignKey(d => d.FkOrders)
+                    .HasForeignKey(d => d.FkBills)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fkc_orders");
+                    .HasConstraintName("fkc_bills");
 
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.Events)
@@ -656,43 +656,7 @@ namespace smart_table.Models.DataBase
                 }
                 );
             
-            modelBuilder.Entity<Events>().HasData(
-                new Events
-                {
-                    Id = 1,
-                    Type = 3,
-                    FkOrders = 1
-                },
-                new Events
-                {
-                    Id = 2,
-                    Type = 4,
-                    FkOrders = 1
-                },
-                new Events
-                {
-                    Id = 3,
-                    Type = 1,
-                    FkOrders = 1
-                },
-                new Events
-                {
-                    Id = 4,
-                    Type = 3,
-                    FkOrders = 2
-                },
-                new Events
-                {
-                    Id = 5,
-                    Type = 4,
-                    FkOrders = 2
-                },
-                new Events
-                {
-                    Id = 6,
-                    Type = 3,
-                    FkOrders = 3
-                });
+            
 
             modelBuilder.Entity<Menus>().HasData(
                 new Menus

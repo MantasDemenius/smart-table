@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200523074016_RemoveAllEvents")]
+    partial class RemoveAllEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -353,8 +355,8 @@ namespace smart_table.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("FkBills")
-                        .HasColumnName("fk_bills")
+                    b.Property<long>("FkOrders")
+                        .HasColumnName("fk_orders")
                         .HasColumnType("bigint");
 
                     b.Property<long>("Type")
@@ -363,7 +365,7 @@ namespace smart_table.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FkBills");
+                    b.HasIndex("FkOrders");
 
                     b.HasIndex("Type");
 
@@ -842,10 +844,10 @@ namespace smart_table.Migrations
 
             modelBuilder.Entity("smart_table.Models.Events", b =>
                 {
-                    b.HasOne("smart_table.Models.Bills", "FkBillsNavigation")
+                    b.HasOne("smart_table.Models.Orders", "FkOrdersNavigation")
                         .WithMany("Events")
-                        .HasForeignKey("FkBills")
-                        .HasConstraintName("fkc_bills")
+                        .HasForeignKey("FkOrders")
+                        .HasConstraintName("fkc_orders")
                         .IsRequired();
 
                     b.HasOne("smart_table.Models.EventType", "TypeNavigation")
