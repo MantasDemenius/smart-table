@@ -326,7 +326,7 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")
-                    .HasDefaultValueSql("CURRENT_DATE");
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.FkBills).HasColumnName("fk_bills");
 
