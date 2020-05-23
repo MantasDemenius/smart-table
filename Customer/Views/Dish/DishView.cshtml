@@ -29,7 +29,7 @@
                     <p class="card-text text-primary">€@Html.DisplayFor(modelItem => modelItem.Price)</p>
                 }
                 <a class="btn btn-primary" asp-controller="ManageOrder" asp-action="openOrderDishForm" asp-route-id="@Model.Id">Įtraukti prekę į užsakymą</a>
-                @*<a href="#" class="card-link">Card link</a>*@
+                <a asp-controller="Menu" asp-action="openMainMenuView" class="card-link">Grįžti atgal</a>
                 @*<a href="#" class="card-link">Another link</a>*@
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace smart_table.Models
 {
@@ -7,6 +8,7 @@ namespace smart_table.Models
     {
         public Bills()
         {
+            Events = new HashSet<Events>();
             Orders = new HashSet<Orders>();
         }
 
@@ -17,8 +19,13 @@ namespace smart_table.Models
         public bool IsPaid { get; set; }
         public string Evaluation { get; set; }
         public long? FkDiscounts { get; set; }
+        public long FkCustomerTables { get; set; }
 
         public virtual Discounts FkDiscountsNavigation { get; set; }
+
+        [Display(Name = "Staliukas")]
+        public virtual CustomerTables FkCustomerTablesNavigation { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Events> Events { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace smart_table.Staff.Controllers
         public async Task<IActionResult> OpenManageOrdersView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
-            var dataBaseContext = _context.Orders.Include(o => o.FkBillsNavigation).Include(o => o.FkCustomerTablesNavigation).Include(o => o.FkRegisteredUsersNavigation);
+            var dataBaseContext = _context.Orders.Include(o => o.FkBillsNavigation).Include(o => o.FkBillsNavigation.FkCustomerTablesNavigation).Include(o => o.FkRegisteredUsersNavigation);
             return View(_viewsPath + "ManageOrdersView.cshtml", await dataBaseContext.ToListAsync());
         }
 
@@ -42,7 +42,7 @@ namespace smart_table.Staff.Controllers
 
             var orders = await _context.Orders
                 .Include(o => o.FkBillsNavigation)
-                .Include(o => o.FkCustomerTablesNavigation)
+                .Include(o => o.FkBillsNavigation.FkCustomerTablesNavigation)
                 .Include(o => o.FkRegisteredUsersNavigation)
                 .Include(o => o.OrderDishes)
                 .FirstOrDefaultAsync(m => m.Id == id);

@@ -15,31 +15,31 @@
                 @Html.DisplayNameFor(model => model.TypeNavigation.Name)
             </th>
             <th>
-                Staliuko @Html.DisplayNameFor(model => model.FkOrdersNavigation.FkCustomerTablesNavigation)
+                Staliuko @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation.Id)
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeNavigation.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FkOrdersNavigation.FkCustomerTables)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeNavigation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FkBillsNavigation.FkCustomerTables)
+                </td>
 
-            <td>
-                @{
-                    if (item.Type == 3 && item.FkOrdersNavigation.FkRegisteredUsers == null)
-                    { 
-                        <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkOrders">Prisiskirti</a>
-                    } 
-                }
+                <td>
+                    @{
+                        if (item.Type == 3 && item.FkBillsNavigation.Orders.Where(o => o.FkRegisteredUsers == null).Count() > 0)
+                        {
+                            <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkBillsNavigation.FkCustomerTables">Prisiskirti</a>
+                        }
+                    }
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -35,13 +35,19 @@ namespace smart_table.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("date_time")
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValueSql("CURRENT_DATE");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Evaluation")
                         .IsRequired()
                         .HasColumnName("evaluation")
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
+
+                    b.Property<long>("FkCustomerTables")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("FkCustomerTablesNavigationId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("FkDiscounts")
                         .HasColumnName("fk_discounts")
@@ -57,6 +63,8 @@ namespace smart_table.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FkCustomerTablesNavigationId");
+
                     b.HasIndex("FkDiscounts");
 
                     b.ToTable("bills");
@@ -68,6 +76,7 @@ namespace smart_table.Migrations
                             Amount = 50.450000000000003,
                             DateTime = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "Labai skanus maistas",
+                            FkCustomerTables = 1L,
                             FkDiscounts = 1L,
                             IsPaid = true,
                             Tips = 10.0
@@ -78,7 +87,38 @@ namespace smart_table.Migrations
                             Amount = 5.3899999999999997,
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "Malonus aptarnavimas",
+                            FkCustomerTables = 2L,
                             FkDiscounts = 2L,
+                            IsPaid = false,
+                            Tips = 0.0
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Amount = 0.0,
+                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Evaluation = "",
+                            FkCustomerTables = 1L,
+                            IsPaid = false,
+                            Tips = 0.0
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Amount = 0.0,
+                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Evaluation = "",
+                            FkCustomerTables = 1L,
+                            IsPaid = false,
+                            Tips = 0.0
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Amount = 0.0,
+                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Evaluation = "",
+                            FkCustomerTables = 3L,
                             IsPaid = false,
                             Tips = 0.0
                         });
@@ -129,6 +169,14 @@ namespace smart_table.Migrations
                             IsTaken = false,
                             JoinCode = "wxz",
                             QrCode = "http://localhost:65312/QrCode/2",
+                            SeatsCount = 4
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            IsTaken = false,
+                            JoinCode = "wxz",
+                            QrCode = "http://localhost:65312/QrCode/3",
                             SeatsCount = 4
                         });
                 });
@@ -300,6 +348,116 @@ namespace smart_table.Migrations
                             FkDishCategories = 2L,
                             Price = 1.0,
                             Title = "Arbata"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Calories = 2000,
+                            Description = "Pomidoru padazas, raudonieji svogunai, letai kepta plesyta jautiena, marinuoti agurkeliai, cederis",
+                            Discount = 0.0,
+                            FkDishCategories = 1L,
+                            Price = 16.0,
+                            Title = "Yankee Burger"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Calories = 1500,
+                            Description = "Pomidoru padazas, malta peperoni desra, kepti cesnakai, karamelizuoti svogunai, mocarela, grazgarstes",
+                            Discount = 20.0,
+                            FkDishCategories = 1L,
+                            Price = 9.0,
+                            Title = "The Wall Street"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Calories = 400,
+                            Description = "Pomidoru padazas - peperoni desra - pankoliu ir anyziumi gardintos desreles - mocarela - marinuoti raudonieji",
+                            Discount = 0.0,
+                            FkDishCategories = 1L,
+                            Price = 11.0,
+                            Title = "BIG TONY'S"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Calories = 1520,
+                            Description = "Trinti pomidorai - skamorca - mocarela - pekorino suris - peperoni desra - kepsniu padazas",
+                            Discount = 30.0,
+                            FkDishCategories = 1L,
+                            Price = 12.0,
+                            Title = "MESOS OMG!"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Calories = 200,
+                            Description = "Naminis pomidoru padazas - letai kepta plesyta kiauliena - musu gamintas kepsniu padazas",
+                            Discount = 0.0,
+                            FkDishCategories = 1L,
+                            Price = 10.5,
+                            Title = "TEXAS COWBOY"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Calories = 2000,
+                            Description = "Pomidoru padazas - marinuota kepta vistiena - musu gamintas kepsniu padazas - parmezanas",
+                            Discount = 50.0,
+                            FkDishCategories = 1L,
+                            Price = 10.5,
+                            Title = "FRIKIN CHICKEN"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Calories = 20,
+                            Description = "Skirtingu skoniu.",
+                            Discount = 0.0,
+                            FkDishCategories = 2L,
+                            Price = 1.45,
+                            Title = "JD naminis limonadas"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Calories = 300,
+                            Description = "330ml",
+                            Discount = 0.0,
+                            FkDishCategories = 2L,
+                            Price = 1.75,
+                            Title = "Pepsi"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Calories = 0,
+                            Description = "330ml",
+                            Discount = 0.0,
+                            FkDishCategories = 2L,
+                            Price = 1.75,
+                            Title = "Pepsi MAX"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Calories = 20,
+                            Description = "330ml",
+                            Discount = 50.0,
+                            FkDishCategories = 2L,
+                            Price = 1.6499999999999999,
+                            Title = "Gira"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            Calories = 0,
+                            Description = "500ml",
+                            Discount = 15.0,
+                            FkDishCategories = 2L,
+                            Price = 1.5,
+                            Title = "Vanduo"
                         });
                 });
 
@@ -353,8 +511,8 @@ namespace smart_table.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("FkOrders")
-                        .HasColumnName("fk_orders")
+                    b.Property<long>("FkBills")
+                        .HasColumnName("fk_bills")
                         .HasColumnType("bigint");
 
                     b.Property<long>("Type")
@@ -363,7 +521,7 @@ namespace smart_table.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FkOrders");
+                    b.HasIndex("FkBills");
 
                     b.HasIndex("Type");
 
@@ -373,37 +531,43 @@ namespace smart_table.Migrations
                         new
                         {
                             Id = 1L,
-                            FkOrders = 1L,
+                            FkBills = 1L,
                             Type = 3L
                         },
                         new
                         {
                             Id = 2L,
-                            FkOrders = 1L,
+                            FkBills = 1L,
                             Type = 4L
                         },
                         new
                         {
                             Id = 3L,
-                            FkOrders = 1L,
+                            FkBills = 1L,
                             Type = 1L
                         },
                         new
                         {
                             Id = 4L,
-                            FkOrders = 2L,
+                            FkBills = 2L,
                             Type = 3L
                         },
                         new
                         {
                             Id = 5L,
-                            FkOrders = 2L,
+                            FkBills = 2L,
                             Type = 4L
                         },
                         new
                         {
                             Id = 6L,
-                            FkOrders = 3L,
+                            FkBills = 3L,
+                            Type = 3L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            FkBills = 4L,
                             Type = 3L
                         });
                 });
@@ -489,6 +653,61 @@ namespace smart_table.Migrations
                         {
                             FkDishes = 2L,
                             FkMenus = 2L
+                        },
+                        new
+                        {
+                            FkDishes = 4L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 5L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 6L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 7L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 8L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 9L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 10L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 11L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 12L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 13L,
+                            FkMenus = 3L
+                        },
+                        new
+                        {
+                            FkDishes = 14L,
+                            FkMenus = 3L
                         });
                 });
 
@@ -586,6 +805,19 @@ namespace smart_table.Migrations
                             Title = "Pagrindinis meniu",
                             Tue = true,
                             Wed = true
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Fri = true,
+                            IsActive = true,
+                            Mon = true,
+                            Sat = true,
+                            Sun = true,
+                            Thu = true,
+                            Title = "Brooklyn Brothers",
+                            Tue = true,
+                            Wed = true
                         });
                 });
 
@@ -651,14 +883,10 @@ namespace smart_table.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("date_time")
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValueSql("CURRENT_DATE");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<long?>("FkBills")
                         .HasColumnName("fk_bills")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("FkCustomerTables")
-                        .HasColumnName("fk_customer_tables")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("FkRegisteredUsers")
@@ -681,8 +909,6 @@ namespace smart_table.Migrations
 
                     b.HasIndex("FkBills");
 
-                    b.HasIndex("FkCustomerTables");
-
                     b.HasIndex("FkRegisteredUsers");
 
                     b.ToTable("orders");
@@ -693,7 +919,6 @@ namespace smart_table.Migrations
                             Id = 1L,
                             DateTime = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 1L,
-                            FkCustomerTables = 1L,
                             FkRegisteredUsers = 2L,
                             Served = true,
                             Submitted = true,
@@ -704,7 +929,6 @@ namespace smart_table.Migrations
                             Id = 2L,
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 2L,
-                            FkCustomerTables = 2L,
                             FkRegisteredUsers = 3L,
                             Served = false,
                             Submitted = true,
@@ -714,7 +938,16 @@ namespace smart_table.Migrations
                         {
                             Id = 3L,
                             DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkCustomerTables = 1L,
+                            FkBills = 3L,
+                            Served = false,
+                            Submitted = true,
+                            Temperature = 19.0
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FkBills = 5L,
                             Served = false,
                             Submitted = true,
                             Temperature = 19.0
@@ -849,6 +1082,10 @@ namespace smart_table.Migrations
 
             modelBuilder.Entity("smart_table.Models.Bills", b =>
                 {
+                    b.HasOne("smart_table.Models.CustomerTables", "FkCustomerTablesNavigation")
+                        .WithMany("Bills")
+                        .HasForeignKey("FkCustomerTablesNavigationId");
+
                     b.HasOne("smart_table.Models.Discounts", "FkDiscountsNavigation")
                         .WithMany("Bills")
                         .HasForeignKey("FkDiscounts")
@@ -880,10 +1117,10 @@ namespace smart_table.Migrations
 
             modelBuilder.Entity("smart_table.Models.Events", b =>
                 {
-                    b.HasOne("smart_table.Models.Orders", "FkOrdersNavigation")
+                    b.HasOne("smart_table.Models.Bills", "FkBillsNavigation")
                         .WithMany("Events")
-                        .HasForeignKey("FkOrders")
-                        .HasConstraintName("fkc_orders")
+                        .HasForeignKey("FkBills")
+                        .HasConstraintName("fkc_bills")
                         .IsRequired();
 
                     b.HasOne("smart_table.Models.EventType", "TypeNavigation")
@@ -905,6 +1142,7 @@ namespace smart_table.Migrations
                         .WithMany("MenuDishes")
                         .HasForeignKey("FkMenus")
                         .HasConstraintName("fkc_menus")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -920,6 +1158,7 @@ namespace smart_table.Migrations
                         .WithMany("OrderDishes")
                         .HasForeignKey("FkOrders")
                         .HasConstraintName("fkc_orders")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -929,12 +1168,6 @@ namespace smart_table.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("FkBills")
                         .HasConstraintName("fkc_bills");
-
-                    b.HasOne("smart_table.Models.CustomerTables", "FkCustomerTablesNavigation")
-                        .WithMany("Orders")
-                        .HasForeignKey("FkCustomerTables")
-                        .HasConstraintName("fkc_customer_tables")
-                        .IsRequired();
 
                     b.HasOne("smart_table.Models.RegisteredUsers", "FkRegisteredUsersNavigation")
                         .WithMany("Orders")

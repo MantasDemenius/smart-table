@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.DateTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Temperature)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Submitted)
             </th>
             <th>
@@ -28,7 +25,7 @@
                 @Html.DisplayNameFor(model => model.FkBillsNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FkCustomerTablesNavigation)
+                @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FkRegisteredUsersNavigation)
@@ -44,9 +41,6 @@
                     @Html.DisplayFor(modelItem => item.DateTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Temperature)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Submitted)
                 </td>
                 <td>
@@ -54,14 +48,20 @@
                 </td>
                 <td>
                     @{
-                        if (item.FkBillsNavigation != null) {
+                        if (item.FkBillsNavigation != null)
+                        {
                             @Html.DisplayFor(modelItem => item.FkBillsNavigation.Id);
                         }
                     }
 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FkCustomerTablesNavigation.Id)
+                    @{
+                        if (item.FkBillsNavigation != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.FkBillsNavigation.FkCustomerTables)
+                        }
+                    }
                 </td>
                 <td>
                     @{

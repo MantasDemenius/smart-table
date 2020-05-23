@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow justify-content-between mb-3">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Smart Table</a>
@@ -51,30 +51,36 @@
                         </ul>
                     </div>
                 </nav>
+                @{
+                    if ((int)ViewData["user_role"] == 3)
+                    {
+                        <a id="table_code" class="nav-item navbar-text">Stalo kodas: @ViewData["table_code"]  </a>
+                    }
+                }
             </div>
-            <a class="nav-item navbar-text" href="Home">Atsijungti</a>X
+            <a class="nav-item navbar-text" href="Home">Atsijungti</a>
         </nav>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Smart Table</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="#">Stalų valdymas</a>
-                            <a class="nav-item nav-link" href="#">Užsakymų valdymas</a>
-                            <a class="nav-item nav-link" href="#">Meniu valdymas</a>
-                            <a class="nav-item nav-link" href="#">Patiekalų valdymas</a>
-                            <a class="nav-item nav-link" asp-area="" asp-controller="RegisteredUsers" asp-action="OpenManageRegisteredUsersView">Valdyti padavėjus</a>
-                            <a class="nav-item nav-link" href="#">Atsijungti</a>
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Smart Table</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-item nav-link" href="#">Stalų valdymas</a>
+                                <a class="nav-item nav-link" href="#">Užsakymų valdymas</a>
+                                <a class="nav-item nav-link" href="#">Meniu valdymas</a>
+                                <a class="nav-item nav-link" href="#">Patiekalų valdymas</a>
+                                <a class="nav-item nav-link" asp-area="" asp-controller="RegisteredUsers" asp-action="OpenManageRegisteredUsersView">Valdyti padavėjus</a>
+                                <a class="nav-item nav-link" href="#">Atsijungti</a>
+                            </div>
                         </div>
-                    </div>
-                </nav>
-            </div>
-        </nav>*@
+                    </nav>
+                </div>
+            </nav>*@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
