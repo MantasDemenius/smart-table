@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200523104233_BiggerMenu")]
+    partial class BiggerMenu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -561,61 +563,6 @@ namespace smart_table.Migrations
                         {
                             FkDishes = 2L,
                             FkMenus = 2L
-                        },
-                        new
-                        {
-                            FkDishes = 4L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 5L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 6L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 7L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 8L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 9L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 10L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 11L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 12L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 13L,
-                            FkMenus = 3L
-                        },
-                        new
-                        {
-                            FkDishes = 14L,
-                            FkMenus = 3L
                         });
                 });
 
