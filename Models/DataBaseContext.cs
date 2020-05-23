@@ -680,8 +680,15 @@ namespace smart_table.Models.DataBase
                     QrCode = "http://localhost:65312/QrCode/2", //Kazkas panasaus
                     IsTaken = false,
                     JoinCode = "wxz"
-                }
-                );
+                },
+                new CustomerTables
+                {
+                    Id = 3,
+                    SeatsCount = 4,
+                    QrCode = "http://localhost:65312/QrCode/3", //Kazkas panasaus
+                    IsTaken = false,
+                    JoinCode = "wxz"
+                });
             
             
             
@@ -864,6 +871,17 @@ namespace smart_table.Models.DataBase
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 1
+                },
+                new Bills
+                {
+                    Id = 5,
+                    DateTime = DateTime.Parse("2020-05-01"),
+                    Tips = 0,
+                    Amount = 0.00,
+                    IsPaid = false,
+                    Evaluation = "",
+                    FkDiscounts = null,
+                    FkCustomerTables = 3
                 });
 
             modelBuilder.Entity<Orders>().HasData(
@@ -895,6 +913,16 @@ namespace smart_table.Models.DataBase
                     Submitted = true,
                     Served = false,
                     FkBills = 3,
+                    FkRegisteredUsers = null
+                },
+                new Orders
+                {
+                    Id = 4,
+                    DateTime = DateTime.Parse("2020-05-16"),
+                    Temperature = 19,
+                    Submitted = true,
+                    Served = false,
+                    FkBills = 5,
                     FkRegisteredUsers = null
                 });
 

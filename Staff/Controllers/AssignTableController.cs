@@ -142,14 +142,59 @@ namespace smart_table.Staff.Controllers
         }
 
         // POST: AssignTable/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignTable(long id)
         {
+            
             var customerTables = await _context.CustomerTables.FindAsync(id);
-            _context.CustomerTables.Remove(customerTables);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var bills = await _context.Bills
+                .Include(o => o.Orders)
+                .Where(b => b.IsPaid == false && b.FkCustomerTables == id).ToListAsync();
+            if(bills.Count == 0)
+            {
+                HttpContext.Session.SetString("message", "Priskyrimas nepavyko - šis stalas neturi aktyvių sąskaitų...");
+                return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
+            }
+            List<Orders> orders = new List<Orders>();
+            foreach(var bill in bills)
+            {
+                foreach(var order in bill.Orders)
+                {
+                    orders.Add(order);
+                }
+            }
+            if (orders.Count == 0)
+            {
+                HttpContext.Session.SetString("message", "Priskyrimas nepavyko - šis stalas neturi užsakymų...");
+                return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
+            }
+            List<Orders> orders_to_assign = new List<Orders>();
+            foreach(var order in orders)
+            {
+                if (order.FkRegisteredUsers == null)
+                    orders_to_assign.Add(order);
+            }
+            if (orders_to_assign.Count == 0)
+            {
+                HttpContext.Session.SetString("message", "Priskyrimas nepavyko - visi šio stalo užsakymai priskirti...");
+                return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
+            }
+            foreach(var order in orders_to_assign)
+            {
+                order.FkRegisteredUsers = HttpContext.Session.GetInt32("user_id");
+                try
+                {
+                    _context.Update(order);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+            }
+            HttpContext.Session.SetString("message", "Laisvi stalo užsakymai sėkmingai priskirti!");
+            return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
         }
 
         private bool CustomerTablesExists(long id)

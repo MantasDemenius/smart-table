@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200523135926_AddTable3")]
+    partial class AddTable3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,16 +111,6 @@ namespace smart_table.Migrations
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "",
                             FkCustomerTables = 1L,
-                            IsPaid = false,
-                            Tips = 0.0
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Amount = 0.0,
-                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Evaluation = "",
-                            FkCustomerTables = 3L,
                             IsPaid = false,
                             Tips = 0.0
                         });
@@ -939,15 +931,6 @@ namespace smart_table.Migrations
                             Id = 3L,
                             DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 3L,
-                            Served = false,
-                            Submitted = true,
-                            Temperature = 19.0
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkBills = 5L,
                             Served = false,
                             Submitted = true,
                             Temperature = 19.0
