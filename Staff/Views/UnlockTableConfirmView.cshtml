@@ -7,9 +7,9 @@
 
 
 
-<h3>Ar tikrai norite prisiskirti šio stalo užsakymus (ID=@Html.DisplayFor(model => model.Id))?</h3>
+<h3>Ar tikrai norite atrakinti šį stalą (ID=@Html.DisplayFor(model => model.Id))?</h3>
 <div>
-    <form asp-action="AssignTable">
+    <form asp-action="UnlockTable">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Taip" class="btn btn-primary" /> |
         <a asp-action="BackToPrevious" class="btn btn-secondary">Ne</a>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,21 +14,22 @@ namespace smart_table.Staff.Controllers
     public class UnlockTableController : Controller
     {
         private readonly DataBaseContext _context;
+        private string _viewsPath = "Staff/Views/";
 
         public UnlockTableController(DataBaseContext context)
         {
             _context = context;
         }
 
-        // GET: UnlockTable
-        public async Task<IActionResult> Index()
+        public IActionResult BackToPrevious()
         {
-            return View(await _context.CustomerTables.ToListAsync());
+            return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
         }
 
-        // GET: UnlockTable/Details/5
-        public async Task<IActionResult> Details(long? id)
+        
+        public async Task<IActionResult> UnlockTable(long? id)
         {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             if (id == null)
             {
                 return NotFound();
@@ -40,114 +42,34 @@ namespace smart_table.Staff.Controllers
                 return NotFound();
             }
 
-            return View(customerTables);
+            return View(_viewsPath + "UnlockTableConfirmView.cshtml", customerTables);
         }
 
-        // GET: UnlockTable/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UnlockTable/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SeatsCount,QrCode,IsTaken,JoinCode")] CustomerTables customerTables)
+        public async Task<IActionResult> UnlockTable(long id)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(customerTables);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(customerTables);
-        }
-
-        // GET: UnlockTable/Edit/5
-        public async Task<IActionResult> Edit(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var customerTables = await _context.CustomerTables.FindAsync(id);
-            if (customerTables == null)
+            customerTables.IsTaken = false;
+            var bills = await _context.Bills.Where(b => b.IsPaid == false && b.FkCustomerTables == id).ToListAsync();
+            try
             {
-                return NotFound();
-            }
-            return View(customerTables);
-        }
-
-        // POST: UnlockTable/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,SeatsCount,QrCode,IsTaken,JoinCode")] CustomerTables customerTables)
-        {
-            if (id != customerTables.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                _context.Update(customerTables);
+                await _context.SaveChangesAsync();
+                foreach(var bill in bills)
                 {
-                    _context.Update(customerTables);
+                    bill.IsPaid = true;
+                    _context.Update(bill);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerTablesExists(customerTables.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
-            return View(customerTables);
-        }
-
-        // GET: UnlockTable/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
+            catch (DbUpdateConcurrencyException)
             {
-                return NotFound();
+                throw;
             }
-
-            var customerTables = await _context.CustomerTables
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customerTables == null)
-            {
-                return NotFound();
-            }
-
-            return View(customerTables);
-        }
-
-        // POST: UnlockTable/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var customerTables = await _context.CustomerTables.FindAsync(id);
-            _context.CustomerTables.Remove(customerTables);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CustomerTablesExists(long id)
-        {
-            return _context.CustomerTables.Any(e => e.Id == id);
+            HttpContext.Session.SetString("message", "Stalas atrakintas sėkmingai!");
+            return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
         }
     }
 }
