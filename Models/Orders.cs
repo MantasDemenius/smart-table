@@ -29,13 +29,8 @@ namespace smart_table.Models
 
         public long? FkRegisteredUsers { get; set; }
 
-        public long FkCustomerTables { get; set; }
-
         [Display(Name = "Sąskaitos ID")]
         public virtual Bills FkBillsNavigation { get; set; }
-        
-        [Display(Name = "Staliukas")]
-        public virtual CustomerTables FkCustomerTablesNavigation { get; set; }
         
         [Display(Name = "Padavėjas")]
         public virtual RegisteredUsers FkRegisteredUsersNavigation { get; set; }

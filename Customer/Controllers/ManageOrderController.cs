@@ -77,7 +77,7 @@ namespace smart_table.Customer.Controllers
                 double temperature = _hydrometereologyInterface.GetTemperature();
                 if (HttpContext.Session.GetInt32("order_id") == null) {
                     Orders order = new Orders();
-                    order.FkCustomerTables = (long)HttpContext.Session.GetInt32("customer_table_id");
+                    order.FkBillsNavigation.FkCustomerTables = (long)HttpContext.Session.GetInt32("customer_table_id");
                     order.FkBills = (long)HttpContext.Session.GetInt32("bill_id");
                     order.Temperature = temperature;
                     _context.Add(order);

@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.FkBillsNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FkCustomerTablesNavigation)
+                @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FkRegisteredUsersNavigation)
@@ -61,7 +61,7 @@
 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FkCustomerTablesNavigation.Id)
+                    @Html.DisplayFor(modelItem => item.FkBillsNavigation.FkCustomerTablesNavigation.Id)
                 </td>
                 <td>
                     @{

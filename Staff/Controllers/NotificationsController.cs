@@ -48,7 +48,7 @@ namespace smart_table.Staff.Controllers
 
             var orders = await _context.Orders
                 .Include(o => o.FkBillsNavigation)
-                .Include(o => o.FkCustomerTablesNavigation)
+                .Include(o => o.FkBillsNavigation.FkCustomerTablesNavigation)
                 .Include(o => o.FkRegisteredUsersNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orders == null)
@@ -82,7 +82,7 @@ namespace smart_table.Staff.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FkBills"] = new SelectList(_context.Bills, "Id", "Evaluation", orders.FkBills);
-            ViewData["FkCustomerTables"] = new SelectList(_context.CustomerTables, "Id", "Id", orders.FkCustomerTables);
+            ViewData["FkCustomerTables"] = new SelectList(_context.CustomerTables, "Id", "Id", orders.FkBillsNavigation.FkCustomerTables);
             ViewData["FkRegisteredUsers"] = new SelectList(_context.RegisteredUsers, "Id", "Email", orders.FkRegisteredUsers);
             return View(orders);
         }
@@ -101,7 +101,7 @@ namespace smart_table.Staff.Controllers
                 return NotFound();
             }
             ViewData["FkBills"] = new SelectList(_context.Bills, "Id", "Evaluation", orders.FkBills);
-            ViewData["FkCustomerTables"] = new SelectList(_context.CustomerTables, "Id", "Id", orders.FkCustomerTables);
+            ViewData["FkCustomerTables"] = new SelectList(_context.CustomerTables, "Id", "Id", orders.FkBillsNavigation.FkCustomerTables);
             ViewData["FkRegisteredUsers"] = new SelectList(_context.RegisteredUsers, "Id", "Email", orders.FkRegisteredUsers);
             return View(orders);
         }
@@ -139,7 +139,7 @@ namespace smart_table.Staff.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FkBills"] = new SelectList(_context.Bills, "Id", "Evaluation", orders.FkBills);
-            ViewData["FkCustomerTables"] = new SelectList(_context.CustomerTables, "Id", "Id", orders.FkCustomerTables);
+            ViewData["FkCustomerTables"] = new SelectList(_context.CustomerTables, "Id", "Id", orders.FkBillsNavigation.FkCustomerTables);
             ViewData["FkRegisteredUsers"] = new SelectList(_context.RegisteredUsers, "Id", "Email", orders.FkRegisteredUsers);
             return View(orders);
         }
@@ -154,7 +154,7 @@ namespace smart_table.Staff.Controllers
 
             var orders = await _context.Orders
                 .Include(o => o.FkBillsNavigation)
-                .Include(o => o.FkCustomerTablesNavigation)
+                .Include(o => o.FkBillsNavigation.FkCustomerTablesNavigation)
                 .Include(o => o.FkRegisteredUsersNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orders == null)

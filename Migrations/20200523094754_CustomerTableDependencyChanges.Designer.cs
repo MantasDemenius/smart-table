@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200523094754_CustomerTableDependencyChanges")]
+    partial class CustomerTableDependencyChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,30 +70,6 @@ namespace smart_table.Migrations
                     b.HasIndex("FkDiscounts");
 
                     b.ToTable("bills");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Amount = 50.450000000000003,
-                            DateTime = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Evaluation = "Labai skanus maistas",
-                            FkCustomerTables = 1L,
-                            FkDiscounts = 1L,
-                            IsPaid = true,
-                            Tips = 10.0
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Amount = 5.3899999999999997,
-                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Evaluation = "Malonus aptarnavimas",
-                            FkCustomerTables = 2L,
-                            FkDiscounts = 2L,
-                            IsPaid = false,
-                            Tips = 0.0
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.CustomerTables", b =>
@@ -378,44 +356,6 @@ namespace smart_table.Migrations
                     b.HasIndex("Type");
 
                     b.ToTable("events");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            FkBills = 1L,
-                            Type = 3L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            FkBills = 1L,
-                            Type = 4L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            FkBills = 1L,
-                            Type = 1L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            FkBills = 2L,
-                            Type = 3L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            FkBills = 2L,
-                            Type = 4L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            FkBills = 1L,
-                            Type = 3L
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.Ingredients", b =>
@@ -624,29 +564,6 @@ namespace smart_table.Migrations
                     b.HasIndex("FkOrders");
 
                     b.ToTable("order_dishes");
-
-                    b.HasData(
-                        new
-                        {
-                            FkDishes = 1L,
-                            FkOrders = 1L,
-                            Comment = "Viena pica be pado",
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            FkDishes = 2L,
-                            FkOrders = 1L,
-                            Comment = "Be cukraus",
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            FkDishes = 1L,
-                            FkOrders = 2L,
-                            Comment = "",
-                            Quantity = 1
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.Orders", b =>
@@ -690,37 +607,6 @@ namespace smart_table.Migrations
                     b.HasIndex("FkRegisteredUsers");
 
                     b.ToTable("orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DateTime = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkBills = 1L,
-                            FkRegisteredUsers = 2L,
-                            Served = true,
-                            Submitted = true,
-                            Temperature = 15.0
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkBills = 2L,
-                            FkRegisteredUsers = 3L,
-                            Served = false,
-                            Submitted = true,
-                            Temperature = 17.0
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FkBills = 1L,
-                            Served = false,
-                            Submitted = true,
-                            Temperature = 19.0
-                        });
                 });
 
             modelBuilder.Entity("smart_table.Models.RegisteredUsers", b =>

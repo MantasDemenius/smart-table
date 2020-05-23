@@ -8,7 +8,7 @@ namespace smart_table.Models
     {
         public CustomerTables()
         {
-            Orders = new HashSet<Orders>();
+            Bills = new HashSet<Bills>();
         }
 
         [Display(Name = "ID")]
@@ -22,6 +22,6 @@ namespace smart_table.Models
         public bool IsTaken { get; set; }
         public string JoinCode { get; set; }
 
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Bills> Bills { get; set; }
     }
 }
