@@ -57,7 +57,7 @@ namespace smart_table.Customer.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts")] Bills bills)
+        public async Task<IActionResult> Create([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace smart_table.Customer.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts")] Bills bills)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
         {
             if (id != bills.Id)
             {
