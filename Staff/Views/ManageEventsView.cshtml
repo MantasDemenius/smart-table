@@ -32,7 +32,7 @@
 
                 <td>
                     @{
-                        if (item.Type == 3 && (item.FkBillsNavigation.Orders.Where(o => o.FkRegisteredUsers == null).Count() > 0 || item.FkBillsNavigation.Orders.Count == 0))
+                        if (item.Type == 3 && item.FkBillsNavigation.Orders.Where(o => o.FkRegisteredUsers == null).Count() > 0)
                         {
                             <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkBillsNavigation.FkCustomerTables">Prisiskirti</a>
                         }
