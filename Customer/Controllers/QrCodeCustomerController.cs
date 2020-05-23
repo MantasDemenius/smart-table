@@ -31,6 +31,11 @@ namespace smart_table.Customer.Controllers
                 return NotFound();
             }
 
+            if (HttpContext.Session.GetInt32("customer_table_id") != null) {
+                HttpContext.Session.SetInt32("user_role", 3);
+                return Redirect("~/Menu");
+            }
+
             if (HttpContext.Session.GetInt32("user_role") != (int)3) {
                 HttpContext.Session.SetInt32("customer_table_id", Convert.ToInt32(id));
                 string joinCode = generateJoinCode();
@@ -47,6 +52,7 @@ namespace smart_table.Customer.Controllers
 
                 var bill = new Bills();
                 bill.Evaluation = "";
+                bill.FkCustomerTables = (long)id;
 
                 _context.Add(bill);
                 _context.SaveChanges();
