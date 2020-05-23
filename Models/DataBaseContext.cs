@@ -47,7 +47,7 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")
-                    .HasDefaultValueSql("CURRENT_DATE");
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Evaluation)
                     .IsRequired()
@@ -240,7 +240,7 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkMenusNavigation)
                     .WithMany(p => p.MenuDishes)
                     .HasForeignKey(d => d.FkMenus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fkc_menus");
             });
 
@@ -314,7 +314,7 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkOrdersNavigation)
                     .WithMany(p => p.OrderDishes)
                     .HasForeignKey(d => d.FkOrders)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fkc_orders");
             });
 
@@ -342,6 +342,7 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkBillsNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.FkBills)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fkc_bills");
                 
                 entity.HasOne(d => d.FkRegisteredUsersNavigation)
