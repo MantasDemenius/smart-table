@@ -28,6 +28,9 @@
                 @Html.DisplayNameFor(model => model.Evaluation)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.FkCustomerTables)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.FkDiscountsNavigation)
             </th>
             <th></th>
@@ -50,6 +53,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Evaluation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FkCustomerTables)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FkDiscountsNavigation.DiscountCode)

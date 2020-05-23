@@ -50,7 +50,6 @@ namespace smart_table.Models.DataBase
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Evaluation)
-                    .IsRequired()
                     .HasColumnName("evaluation")
                     .HasMaxLength(255);
 
@@ -58,7 +57,9 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.IsPaid).HasColumnName("is_paid");
 
-                entity.Property(e => e.Tips).HasColumnName("tips");
+                entity.Property(e => e.Tips)
+                .HasDefaultValue((double)0.0)
+                .HasColumnName("tips");
 
                 entity.HasOne(d => d.FkDiscountsNavigation)
                     .WithMany(p => p.Bills)
