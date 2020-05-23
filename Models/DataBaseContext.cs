@@ -47,7 +47,7 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")
-                    .HasDefaultValueSql("CURRENT_DATE");
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Evaluation)
                     .IsRequired()
@@ -240,7 +240,7 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkMenusNavigation)
                     .WithMany(p => p.MenuDishes)
                     .HasForeignKey(d => d.FkMenus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fkc_menus");
             });
 
@@ -314,7 +314,7 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkOrdersNavigation)
                     .WithMany(p => p.OrderDishes)
                     .HasForeignKey(d => d.FkOrders)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fkc_orders");
             });
 
@@ -342,6 +342,7 @@ namespace smart_table.Models.DataBase
                 entity.HasOne(d => d.FkBillsNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.FkBills)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fkc_bills");
                 
                 entity.HasOne(d => d.FkRegisteredUsersNavigation)
@@ -531,6 +532,116 @@ namespace smart_table.Models.DataBase
                     Calories = 20,
                     Discount = 0,
                     FkDishCategories = 2
+                },
+                new Dishes
+                {
+                    Id = 4,
+                    Title = "Yankee Burger",
+                    Description = "Pomidoru padazas, raudonieji svogunai, letai kepta plesyta jautiena, marinuoti agurkeliai, cederis",
+                    Price = 16.00,
+                    Calories = 2000,
+                    Discount = 0,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 5,
+                    Title = "The Wall Street",
+                    Description = "Pomidoru padazas, malta peperoni desra, kepti cesnakai, karamelizuoti svogunai, mocarela, grazgarstes",
+                    Price = 9.00,
+                    Calories = 1500,
+                    Discount = 20,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 6,
+                    Title = "BIG TONY'S",
+                    Description = "Pomidoru padazas - peperoni desra - pankoliu ir anyziumi gardintos desreles - mocarela - marinuoti raudonieji",
+                    Price = 11.00,
+                    Calories = 400,
+                    Discount = 0,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 7,
+                    Title = "MESOS OMG!",
+                    Description = "Trinti pomidorai - skamorca - mocarela - pekorino suris - peperoni desra - kepsniu padazas",
+                    Price = 12.00,
+                    Calories = 1520,
+                    Discount = 30,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 8,
+                    Title = "TEXAS COWBOY",
+                    Description = "Naminis pomidoru padazas - letai kepta plesyta kiauliena - musu gamintas kepsniu padazas",
+                    Price = 10.50,
+                    Calories = 200,
+                    Discount = 0,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 9,
+                    Title = "FRIKIN CHICKEN",
+                    Description = "Pomidoru padazas - marinuota kepta vistiena - musu gamintas kepsniu padazas - parmezanas",
+                    Price = 10.50,
+                    Calories = 2000,
+                    Discount = 50,
+                    FkDishCategories = 1
+                },
+                new Dishes
+                {
+                    Id = 10,
+                    Title = "JD naminis limonadas",
+                    Description = "Skirtingu skoniu.",
+                    Price = 1.45,
+                    Calories = 20,
+                    Discount = 0,
+                    FkDishCategories = 2
+                },
+                new Dishes
+                {
+                    Id = 11,
+                    Title = "Pepsi",
+                    Description = "330ml",
+                    Price = 1.75,
+                    Calories = 300,
+                    Discount = 0,
+                    FkDishCategories = 2
+                },
+                new Dishes
+                {
+                    Id = 12,
+                    Title = "Pepsi MAX",
+                    Description = "330ml",
+                    Price = 1.75,
+                    Calories = 0,
+                    Discount = 0,
+                    FkDishCategories = 2
+                },
+                new Dishes
+                {
+                    Id = 13,
+                    Title = "Gira",
+                    Description = "330ml",
+                    Price = 1.65,
+                    Calories = 20,
+                    Discount = 50,
+                    FkDishCategories = 2
+                },
+                new Dishes
+                {
+                    Id = 14,
+                    Title = "Vanduo",
+                    Description = "500ml",
+                    Price = 1.50,
+                    Calories = 0,
+                    Discount = 15,
+                    FkDishCategories = 2
                 });
             
 
@@ -609,6 +720,23 @@ namespace smart_table.Models.DataBase
                     DateFrom = null,    //new DateTime(2020, 1, 1),
                     DateUntil = null,   //new DateTime(2030, 1, 1),
                     IsActive = true
+                },
+                new Menus
+                {
+                    Id = 3,
+                    Title = "Brooklyn Brothers",
+                    Mon = true,
+                    Tue = true,
+                    Wed = true,
+                    Thu = true,
+                    Fri = true,
+                    Sat = true,
+                    Sun = true,
+                    TimeFrom = null,    //new TimeSpan(6, 0, 0),
+                    TimeUntil = null,   //new TimeSpan(10, 0, 0),
+                    DateFrom = null,    //new DateTime(2020, 1, 1),
+                    DateUntil = null,   //new DateTime(2030, 1, 1),
+                    IsActive = true
                 });
 
             modelBuilder.Entity<MenuDishes>().HasData(
@@ -636,6 +764,61 @@ namespace smart_table.Models.DataBase
                 {
                     FkDishes = 2,
                     FkMenus = 2
+                },
+                new MenuDishes
+                {
+                    FkDishes = 4,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 5,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 6,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 7,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 8,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 9,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 10,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 11,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 12,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 13,
+                    FkMenus = 3
+                },
+                new MenuDishes
+                {
+                    FkDishes = 14,
+                    FkMenus = 3
                 });
 
             modelBuilder.Entity<Bills>().HasData(

@@ -9,10 +9,10 @@
 {
 
     @if ((item.FkMenusNavigation.TimeFrom <= DateTime.Now.TimeOfDay && item.FkMenusNavigation.TimeUntil >= DateTime.Now.TimeOfDay)
-      || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
+     || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
     {
         double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
-        <div style="text-align:-webkit-center;">
+        <div class="py-md-1" style="text-align:-webkit-center;">
             <div class="card" style="width: 56%; text-align:justify;">
                 <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.FkDishesNavigation.Id">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)</h5>
