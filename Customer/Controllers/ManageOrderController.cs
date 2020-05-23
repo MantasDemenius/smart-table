@@ -40,7 +40,6 @@ namespace smart_table.Customer.Controllers
             return View(_viewsPath + "OrderDishFormView.cshtml");
         }
 
-
         // GET: ManageOrder/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -222,6 +221,20 @@ namespace smart_table.Customer.Controllers
         private bool OrderDishesExists(long id)
         {
             return _context.OrderDishes.Any(e => e.FkDishes == id);
+        }
+
+        public async Task<IActionResult> goBack() {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
+            long dishId = (long)HttpContext.Session.GetInt32("dish_id");
+            var dishes = await _context.Dishes
+                .Include(d => d.FkDishCategoriesNavigation)
+                .FirstOrDefaultAsync(m => m.Id == dishId);
+            if (dishes == null)
+            {
+                return NotFound();
+            }
+            return View("~/Customer/Views/Dish/DishView.cshtml", dishes);
         }
     }
 }
