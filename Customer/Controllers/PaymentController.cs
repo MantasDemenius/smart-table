@@ -93,6 +93,7 @@ namespace smart_table.Customer.Controllers
         public async Task<IActionResult> submitPayment([Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
 
             if (ModelState.IsValid && validatePayment(bills))
             {
@@ -120,7 +121,7 @@ namespace smart_table.Customer.Controllers
                 return View(_viewsPath + "Payment.cshtml", bills);
             }
 
-            ViewData["message"] = "Prastai užpildyti laukai";
+            ViewData["message"] = "Įvyko klaida, pakvieskite padavėją";
             ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode", bills.FkDiscounts);
             return View(_viewsPath + "Payment.cshtml", bills);
         }

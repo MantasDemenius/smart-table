@@ -29,7 +29,7 @@ namespace smart_table.Staff.Controllers
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             HttpContext.Session.SetString("message", "");
             HttpContext.Session.SetString("previous_page", "ViewTables");
-            var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.ToListAsync(), null);
+            var dataTuple = new Tuple<List<CustomerTables>, Byte[]>(await _context.CustomerTables.OrderBy(ct => ct.Id).ToListAsync(), null);
             return View(_viewsPath + "TableListView.cshtml", dataTuple);
         }
     }

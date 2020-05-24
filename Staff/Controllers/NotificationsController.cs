@@ -35,6 +35,7 @@ namespace smart_table.Staff.Controllers
                 .Include(o => o.FkBillsNavigation)
                 .Include(o => o.TypeNavigation)
                 .Where(o => o.FkBillsNavigation.Orders.Count == 0 || o.FkBillsNavigation.Orders.Where(d => d.FkRegisteredUsers == null || d.FkRegisteredUsers == HttpContext.Session.GetInt32("user_id")).Count() > 0)
+                .OrderByDescending(e => e.Id)
                 .ToListAsync();
 
             foreach(var e in events)

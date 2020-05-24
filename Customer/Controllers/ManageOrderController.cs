@@ -69,6 +69,12 @@ namespace smart_table.Customer.Controllers
 
             double amount = billOrders.Aggregate(0.0, (acc, x) => acc + x.price);
 
+            if (billOrders.Count == 0)
+            {
+                var dataBaseContext = _context.MenuDishes.Include(m => m.FkDishesNavigation).Include(m => m.FkMenusNavigation);
+                ViewData["message"] = "Jūsų krepšelis tuščias";
+                return View("~/Customer/Views/Menu/" + "MainMenuView.cshtml", dataBaseContext.ToList());
+            }
 
             TempData["amount"] = Math.Round(amount, 2);
             TempData["id"] = billOrders.First().id;
