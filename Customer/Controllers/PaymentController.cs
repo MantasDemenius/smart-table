@@ -53,7 +53,6 @@ namespace smart_table.Customer.Controllers
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
             var tableId = HttpContext.Session.GetInt32("customer_table_id");
-            tableId = 3; // Istrinti kai bus padaryta prideti i orderi!!!!!!!
             if (tableId == null)
             {
                 return NotFound();
@@ -62,7 +61,7 @@ namespace smart_table.Customer.Controllers
             ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode");
 
             var bill = _context.Bills
-                .FirstOrDefault(m => m.Id == tableId);
+                .FirstOrDefault(b => b.FkCustomerTables == tableId && b.IsPaid == false);
 
             if (bill == null)
             {
