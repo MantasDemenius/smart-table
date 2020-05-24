@@ -18,10 +18,13 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-item nav-link" asp-area="" asp-controller="Recommendation" asp-action="OpenRecommendationsView">Rekomendacijos</a>
-                            </li>
                             @{
+                                if((int)ViewData["user_role"] == 3)
+                                {
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" asp-area="" asp-controller="Recommendation" asp-action="OpenRecommendationsView">Rekomendacijos</a>
+                                </li>
+                                }
                                 if ((int)ViewData["user_role"] == 2)
                                 {
                                     <li class="nav-item">
