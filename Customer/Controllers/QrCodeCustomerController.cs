@@ -30,7 +30,6 @@ namespace smart_table.Customer.Controllers
             {
                 return NotFound();
             }
-
             if (HttpContext.Session.GetInt32("customer_table_id") != null) {
                 HttpContext.Session.SetInt32("user_role", 3);
                 return Redirect("~/Menu");
@@ -57,6 +56,13 @@ namespace smart_table.Customer.Controllers
                 _context.Add(bill);
                 _context.SaveChanges();
                 HttpContext.Session.SetInt32("bill_id", Convert.ToInt32(bill.Id));
+
+                // Send event to the waiter
+                Events events = new Events();
+                events.Type = 3;
+                events.FkBills = bill.Id;
+                _context.Add(events);
+                await _context.SaveChangesAsync();
             }
             
             HttpContext.Session.SetInt32("user_role", 3);
