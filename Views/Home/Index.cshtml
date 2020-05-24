@@ -3,21 +3,70 @@
     ViewData["Title"] = "Namų puslapis";
 
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - Smart Table</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
 
-<div class="text-center">
-    <h1 class="display-4">Smart table</h1>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-
-            <li class="nav-item">
-                <a class="nav-item nav-link" asp-area="" asp-action="ConnectAsCustomer">Klientas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item nav-link" asp-area="" asp-action="ConnectAsWaiter">Padavėjas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item nav-link" asp-area="" asp-action="ConnectAsAdmin">Administratorius</a>
-            </li>
-        </ul>
+    <div class="container" style="padding-top:5%;">
+        <div class="row">
+            <div class="col-sm">
+                <a class="nav-item nav-link text-center" asp-area="" asp-action="ConnectAsCustomer">
+                    Užimti pirmą stalą
+                    <img class="img-fluid img-thumbnail" src="~/pictures/stalas-1.jpg" alt="stalas" style="width:200px" />
+                </a>
+            </div>
+            <div class="col-sm">
+                <a class="nav-item nav-link text-center" asp-area="" asp-action="ConnectAsCustomer">
+                    Užimti antrą stalą
+                    <img class="img-fluid img-thumbnail" src="~/pictures/stalas-2.jpg" alt="stalas" style="width:200px" />
+                </a>
+            </div>
+            <div class="col-sm">
+                <a class="nav-item nav-link text-center" asp-area="" asp-action="ConnectAsCustomer">
+                    Užimti trečią stalą
+                    <img class="img-fluid img-thumbnail" src="~/pictures/stalas-3.jpg" alt="stalas" style="width:200px" />
+                </a>
+            </div>
+        </div>
+        <div class="row" style="padding-top:2%;">
+            <div class="col-sm text-center">
+                    <img class="img-fluid img-thumbnail" src="~/pictures/stalo-QR-kodas-1.png" alt="stalas" style="width:200px" />
+            </div>
+            <div class="col-sm text-center">
+                    <img class="img-fluid img-thumbnail" src="~/pictures/stalo-QR-kodas-2.png" alt="stalas" style="width:200px" />
+            </div>
+            <div class="col-sm text-center">
+                    <img class="img-fluid img-thumbnail" src="~/pictures/stalo-QR-kodas-3.png" alt="stalas" style="width:200px" />
+            </div>
+        </div>
     </div>
-</div>
+
+    @*<div class="text-center">
+        <h1 class="display-4">Smart table</h1>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" asp-area="" asp-action="ConnectAsCustomer">Klientas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" asp-area="" asp-action="ConnectAsWaiter">Padavėjas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" asp-area="" asp-action="ConnectAsAdmin">Administratorius</a>
+                </li>
+            </ul>
+        </div>
+    </div>*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
