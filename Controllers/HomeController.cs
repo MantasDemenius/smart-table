@@ -23,10 +23,25 @@ namespace smart_table.Controllers
         
         public IActionResult Index()
         {
+            int user_role = -1;
+            if (HttpContext.Session.GetInt32("user_role") != null)
+                user_role = (int)HttpContext.Session.GetInt32("user_role");
+
+            switch (user_role) {
+                case 1:
+                    return ConnectAsAdmin();
+                case 2:
+                    return ConnectAsWaiter();
+                case 3:
+                    return ConnectAsCustomer();
+            }
             return View();
         }
 
-        
+        public IActionResult logout()
+        {
+            return View("~/Views/Home/Index.cshtml");
+        }
         
         public IActionResult ConnectAsAdmin()
         {
