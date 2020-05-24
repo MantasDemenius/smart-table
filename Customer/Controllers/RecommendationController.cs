@@ -105,9 +105,9 @@ namespace smart_table.Customer.Controllers
         {
             return Task.Run(() =>
             {
-                int currentTemp = _hydrometereologyInterface.GetTemperature();
-                int minTemp = currentTemp - 5;
-                int maxTemp = currentTemp + 5;
+                double currentTemp = _hydrometereologyInterface.GetTemperature();
+                double minTemp = currentTemp - 5;
+                double maxTemp = currentTemp + 5;
 
                 var ordersByTemp = _context.Orders
                     .Where(o => o.Temperature >= minTemp && o.Temperature <= maxTemp)
@@ -142,7 +142,7 @@ namespace smart_table.Customer.Controllers
 
         private void sortRecommendations()
         {
-            recommendedDishes = recommendedDishes.OrderBy(d => d.Title).ToList();
+            recommendedDishes = recommendedDishes.OrderByDescending(d => d.Price).ToList();
         }
 
         // GET: Recomendation/Details/5

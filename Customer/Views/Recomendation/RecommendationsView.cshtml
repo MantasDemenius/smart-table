@@ -1,11 +1,27 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@model List<smart_table.Models.Dishes>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Rekomendacijos";
 }
 
-<h1>Rekomendacijos</h1>
-
-<p>
-    <a asp-action="Create"></a>
-</p>
+@foreach (var item in Model)
+{
+double discountedPrice = Math.Round((double)(item.Price - (item.Price * (item.Discount / 100))), 2);
+<div style="text-align:-webkit-center;">
+    <div class="card" style="width: 56%; text-align:justify;">
+        <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.Id">
+            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Description)</h6>
+            @if (item.Discount != 0)
+            {
+                <p class="card-text text-danger">€@discountedPrice<span class="text-black-50 px-sm-3"><del>@Html.DisplayFor(modelItem => item.Price)</del></span></p>
+            }
+            else
+            {
+                <p class="card-text text-primary">€@Html.DisplayFor(modelItem => item.Price)</p>
+            }
+        </a>
+    </div>
+</div>
+}
