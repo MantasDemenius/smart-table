@@ -676,15 +676,15 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 1,
                     SeatsCount = 6,
-                    QrCode = "http://localhost:65312/QrCode/1", //Kazksa panasaus
-                    IsTaken = true,
+                    QrCode = "http://localhost:65312/TakeTable?id=1", //Kazksa panasaus
+                    IsTaken = false,
                     JoinCode = "DEF"
                 },
                 new CustomerTables
                 {
                     Id = 2,
                     SeatsCount = 4,
-                    QrCode = "http://localhost:65312/QrCode/2", //Kazkas panasaus
+                    QrCode = "http://localhost:65312/TakeTable?id=2", //Kazkas panasaus
                     IsTaken = false,
                     JoinCode = "wxz"
                 },
@@ -692,7 +692,7 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 3,
                     SeatsCount = 4,
-                    QrCode = "http://localhost:65312/QrCode/3", //Kazkas panasaus
+                    QrCode = "http://localhost:65312/TakeTable?id=3", //Kazkas panasaus
                     IsTaken = false,
                     JoinCode = "wxz"
                 });
@@ -853,7 +853,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 5.39,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "Malonus aptarnavimas",
                     FkDiscounts = 2,
                     FkCustomerTables = 2
@@ -864,7 +864,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 0.00,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 1
@@ -874,7 +874,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 0.00,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 1
@@ -885,7 +885,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 0.00,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 3
@@ -908,7 +908,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Temperature = 17,
                     Submitted = true,
-                    Served = false,
+                    Served = true,
                     FkBills = 2,
                     FkRegisteredUsers = 3
                 },
@@ -918,7 +918,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-16"),
                     Temperature = 19,
                     Submitted = true,
-                    Served = false,
+                    Served = true,
                     FkBills = 3,
                     FkRegisteredUsers = null
                 },
@@ -928,7 +928,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-16"),
                     Temperature = 19,
                     Submitted = true,
-                    Served = false,
+                    Served = true,
                     FkBills = 5,
                     FkRegisteredUsers = null
                 });
