@@ -19,11 +19,17 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             @{
-                                if((int)ViewData["user_role"] == 3)
+                                if ((int)ViewData["user_role"] == 3)
                                 {
-                                <li class="nav-item">
-                                    <a class="nav-item nav-link" asp-area="" asp-controller="Recommendation" asp-action="OpenRecommendationsView">Rekomendacijos</a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-item nav-link" asp-area="" asp-controller="Recommendation" asp-action="OpenRecommendationsView">Rekomendacijos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="order_button" class="nav-item nav-link" asp-controller="ManageOrder" asp-action="openManageOrderView">Valdyti užsakymą</a>
+                                    </li>        
+                                    <li class="nav-item">
+                                        <a id="bill_button" class="nav-item nav-link" asp-controller="Payment" asp-action="openPaymentView">Apmokėti sąskaitą</a>
+                                    </li>
                                 }
                                 if ((int)ViewData["user_role"] == 2)
                                 {
@@ -59,8 +65,7 @@
                     {
 
                         <a id="table_code" class="nav-item navbar-text">Stalo kodas: @ViewData["table_code"]  </a>
-                        <a id="order_button" class="nav-item nav-link btn btn-secondary btn-sm" asp-controller="ManageOrder" asp-action="openManageOrderView">Valdyti užsakymą</a>
-                        <a id="bill_button" class="nav-item nav-link btn btn-secondary btn-sm" asp-controller="Payment" asp-action="openPaymentView">Apmokėti sąskaitą</a>
+
                     }
                 }
             </div>

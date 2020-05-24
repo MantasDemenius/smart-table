@@ -29,7 +29,7 @@ namespace smart_table.Customer.Controllers
         public async Task<IActionResult> OpenRecommendationsView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
-
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             // https://stackoverflow.com/questions/44063832/what-is-the-best-practice-in-ef-core-for-using-parallel-async-calls-with-an-inje
             // <...> abandoning Dependency Injection
             // which would create development overhead/maintenance debt,

@@ -5,6 +5,7 @@
     ViewData["Title"] = "Meniu";
 }
 
+ <h3>@ViewData["message"]</h3>
 @foreach (var item in Model)
 {
 
@@ -13,7 +14,7 @@
     {
         double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
         <div class="py-md-1" style="text-align:-webkit-center;">
-            <div class="card" style="width: 56%; text-align:justify;">
+            <div class="card" style="width: 75%; text-align:justify;">
                 <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.FkDishesNavigation.Id">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Description)</h6>
