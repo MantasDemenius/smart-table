@@ -14,7 +14,7 @@
         <form asp-action="addDish">
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
+                <input asp-for="Quantity" class="form-control" value="1"/>
             </div>
             <div class="form-group">
                 <label asp-for="Comment" class="control-label"></label>
@@ -29,7 +29,7 @@
 </div>
 
 <div>
-    <a asp-action="OpenManageRegisteredUsersView">Grįžti atgal</a>
+    <a asp-action="goBack">Grįžti atgal</a>
 </div>
 
 @section Scripts {

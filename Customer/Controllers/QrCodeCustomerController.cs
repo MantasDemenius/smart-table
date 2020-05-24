@@ -30,6 +30,10 @@ namespace smart_table.Customer.Controllers
             {
                 return NotFound();
             }
+            if (HttpContext.Session.GetInt32("customer_table_id") != null) {
+                HttpContext.Session.SetInt32("user_role", 3);
+                return Redirect("~/Menu");
+            }
 
             if (HttpContext.Session.GetInt32("user_role") != (int)3) {
                 HttpContext.Session.SetInt32("customer_table_id", Convert.ToInt32(id));
@@ -47,10 +51,18 @@ namespace smart_table.Customer.Controllers
 
                 var bill = new Bills();
                 bill.Evaluation = "";
+                bill.FkCustomerTables = (long)id;
 
                 _context.Add(bill);
                 _context.SaveChanges();
                 HttpContext.Session.SetInt32("bill_id", Convert.ToInt32(bill.Id));
+
+                // Send event to the waiter
+                Events events = new Events();
+                events.Type = 3;
+                events.FkBills = bill.Id;
+                _context.Add(events);
+                await _context.SaveChangesAsync();
             }
             
             HttpContext.Session.SetInt32("user_role", 3);

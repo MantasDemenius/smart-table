@@ -41,7 +41,9 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("bills");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                .HasIdentityOptions(startValue: 10)
+                .HasColumnName("id");
 
                 entity.Property(e => e.Amount).HasColumnName("amount");
 
@@ -50,7 +52,6 @@ namespace smart_table.Models.DataBase
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Evaluation)
-                    .IsRequired()
                     .HasColumnName("evaluation")
                     .HasMaxLength(255);
 
@@ -58,7 +59,9 @@ namespace smart_table.Models.DataBase
 
                 entity.Property(e => e.IsPaid).HasColumnName("is_paid");
 
-                entity.Property(e => e.Tips).HasColumnName("tips");
+                entity.Property(e => e.Tips)
+                .HasDefaultValue((double)0.0)
+                .HasColumnName("tips");
 
                 entity.HasOne(d => d.FkDiscountsNavigation)
                     .WithMany(p => p.Bills)
@@ -185,7 +188,9 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("events");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                .HasIdentityOptions(startValue: 10)
+                .HasColumnName("id");
 
                 entity.Property(e => e.FkBills).HasColumnName("fk_bills");
 
@@ -322,7 +327,9 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("orders");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasIdentityOptions(startValue: 10)
+                    .HasColumnName("id");
 
                 entity.Property(e => e.DateTime)
                     .HasColumnName("date_time")
@@ -669,15 +676,15 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 1,
                     SeatsCount = 6,
-                    QrCode = "http://localhost:65312/QrCode/1", //Kazksa panasaus
-                    IsTaken = true,
+                    QrCode = "http://localhost:65312/TakeTable?id=1", //Kazksa panasaus
+                    IsTaken = false,
                     JoinCode = "DEF"
                 },
                 new CustomerTables
                 {
                     Id = 2,
                     SeatsCount = 4,
-                    QrCode = "http://localhost:65312/QrCode/2", //Kazkas panasaus
+                    QrCode = "http://localhost:65312/TakeTable?id=2", //Kazkas panasaus
                     IsTaken = false,
                     JoinCode = "wxz"
                 },
@@ -685,7 +692,7 @@ namespace smart_table.Models.DataBase
                 {
                     Id = 3,
                     SeatsCount = 4,
-                    QrCode = "http://localhost:65312/QrCode/3", //Kazkas panasaus
+                    QrCode = "http://localhost:65312/TakeTable?id=3", //Kazkas panasaus
                     IsTaken = false,
                     JoinCode = "wxz"
                 });
@@ -846,7 +853,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 5.39,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "Malonus aptarnavimas",
                     FkDiscounts = 2,
                     FkCustomerTables = 2
@@ -857,7 +864,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 0.00,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 1
@@ -867,7 +874,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 0.00,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 1
@@ -878,7 +885,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Tips = 0,
                     Amount = 0.00,
-                    IsPaid = false,
+                    IsPaid = true,
                     Evaluation = "",
                     FkDiscounts = null,
                     FkCustomerTables = 3
@@ -901,7 +908,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-01"),
                     Temperature = 17,
                     Submitted = true,
-                    Served = false,
+                    Served = true,
                     FkBills = 2,
                     FkRegisteredUsers = 3
                 },
@@ -911,7 +918,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-16"),
                     Temperature = 19,
                     Submitted = true,
-                    Served = false,
+                    Served = true,
                     FkBills = 3,
                     FkRegisteredUsers = null
                 },
@@ -921,7 +928,7 @@ namespace smart_table.Models.DataBase
                     DateTime = DateTime.Parse("2020-05-16"),
                     Temperature = 19,
                     Submitted = true,
-                    Served = false,
+                    Served = true,
                     FkBills = 5,
                     FkRegisteredUsers = null
                 });
@@ -945,6 +952,13 @@ namespace smart_table.Models.DataBase
                 {
                     FkDishes = 1,
                     FkOrders = 2,
+                    Quantity = 1,
+                    Comment = ""
+                },
+                new OrderDishes
+                {
+                    FkDishes = 11,
+                    FkOrders = 3,
                     Quantity = 1,
                     Comment = ""
                 });
@@ -992,6 +1006,7 @@ namespace smart_table.Models.DataBase
                     Type = 3,
                     FkBills = 4
                 });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

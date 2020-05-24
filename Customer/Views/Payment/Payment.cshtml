@@ -1,0 +1,47 @@
+﻿@model smart_table.Models.Bills
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Apmoketi saskaita";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Apmokėti sąskaitą</h1>
+<h3>@ViewData["message"]</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="submitPayment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Amount" />
+            <input type="hidden" asp-for="DateTime" />
+            <input type="hidden" asp-for="IsPaid" />
+            <input type="hidden" asp-for="FkDiscounts" />
+            <input type="hidden" asp-for="FkCustomerTables"/>
+            <div class="form-group">
+                <label asp-for="Tips" class="control-label"></label>
+                <input type="number" asp-for="Tips" class="form-control" />
+                <span asp-validation-for="Tips" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Evaluation" class="control-label exampleFormControlTextarea1"></label>
+                <textarea asp-for="Evaluation" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Evaluation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p class="text-sm-left">Suma @Model.Amount</p>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Apmokėti" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

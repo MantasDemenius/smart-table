@@ -21,14 +21,11 @@ namespace smart_table.Staff.Controllers
             _context = context;
         }
 
-
         public IActionResult BackToPrevious()
         {            
             return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
         }
 
-
-        // GET: AssignTable/Delete/5
         public async Task<IActionResult> AssignTable(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -47,7 +44,6 @@ namespace smart_table.Staff.Controllers
             return View(_viewsPath + "AssignTableConfirmView.cshtml", customerTables);
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignTable(long id)

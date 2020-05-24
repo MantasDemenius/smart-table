@@ -22,7 +22,6 @@ namespace smart_table.Controllers
             _context = context;
         }
 
-        // GET: RegisteredUsers
         [Route("ManageRegisteredUsers")]
         public async Task<IActionResult> OpenManageRegisteredUsersView()
         {
@@ -31,7 +30,6 @@ namespace smart_table.Controllers
             return View(_viewsPath + "ManageRegisteredUsersView.cshtml", await dataBaseContext.ToListAsync());
         }
 
-        // GET: RegisteredUsers/Details/5
         public async Task<IActionResult> OpenRegisteredUserView(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -51,7 +49,6 @@ namespace smart_table.Controllers
             return View(_viewsPath + "RegisteredUserView.cshtml", registeredUsers);
         }
 
-        // GET: RegisteredUsers/Create
         public IActionResult OpenCreateRegisteredUserView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -59,9 +56,6 @@ namespace smart_table.Controllers
             return View(_viewsPath + "RegisteredUserCreateForm.cshtml");
         }
 
-        // POST: RegisteredUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRegisteredUser([Bind("Id,Name,Surname,Password,Phone,Email,BirthDate,IsBlocked,Role")] RegisteredUsers registeredUsers)
@@ -94,7 +88,6 @@ namespace smart_table.Controllers
             return true;
         }
 
-        // GET: RegisteredUsers/Edit/5
         public async Task<IActionResult> OpenEditRegisteredUserView(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -112,9 +105,6 @@ namespace smart_table.Controllers
             return View(_viewsPath + "RegisteredUserEditForm.cshtml" , registeredUsers);
         }
 
-        // POST: RegisteredUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRegisteredUser(long id, [Bind("Id,Name,Surname,Password,Phone,Email,BirthDate,IsBlocked,Role")] RegisteredUsers registeredUsers)
@@ -158,7 +148,6 @@ namespace smart_table.Controllers
 
         }
 
-        // GET: RegisteredUsers/Delete/5
         public async Task<IActionResult> DeleteRegisteredUser(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -178,7 +167,6 @@ namespace smart_table.Controllers
             return View(_viewsPath + "RegisteredUserDeleteView.cshtml", registeredUsers);
         }
 
-        // POST: RegisteredUsers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRegisteredUser(long id)

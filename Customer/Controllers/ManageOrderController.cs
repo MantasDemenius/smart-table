@@ -35,10 +35,10 @@ namespace smart_table.Customer.Controllers
         public IActionResult openOrderDishForm(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             HttpContext.Session.SetInt32("dish_id", Convert.ToInt32(id));
             return View(_viewsPath + "OrderDishFormView.cshtml");
         }
-
 
         // GET: ManageOrder/Details/5
         public async Task<IActionResult> Details(long? id)
@@ -77,7 +77,6 @@ namespace smart_table.Customer.Controllers
                 double temperature = _hydrometereologyInterface.GetTemperature();
                 if (HttpContext.Session.GetInt32("order_id") == null) {
                     Orders order = new Orders();
-                    order.FkBillsNavigation.FkCustomerTables = (long)HttpContext.Session.GetInt32("customer_table_id");
                     order.FkBills = (long)HttpContext.Session.GetInt32("bill_id");
                     order.Temperature = temperature;
                     _context.Add(order);
@@ -222,6 +221,20 @@ namespace smart_table.Customer.Controllers
         private bool OrderDishesExists(long id)
         {
             return _context.OrderDishes.Any(e => e.FkDishes == id);
+        }
+
+        public async Task<IActionResult> goBack() {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
+            long dishId = (long)HttpContext.Session.GetInt32("dish_id");
+            var dishes = await _context.Dishes
+                .Include(d => d.FkDishCategoriesNavigation)
+                .FirstOrDefaultAsync(m => m.Id == dishId);
+            if (dishes == null)
+            {
+                return NotFound();
+            }
+            return View("~/Customer/Views/Dish/DishView.cshtml", dishes);
         }
     }
 }

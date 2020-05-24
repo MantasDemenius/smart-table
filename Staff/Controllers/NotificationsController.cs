@@ -21,7 +21,7 @@ namespace smart_table.Staff.Controllers
             _context = context;
         }
 
-        // GET: Notifications
+        
         [Route("Notifications")]
         public async Task<IActionResult> OpenNotificationsView()
         {
@@ -43,6 +43,5 @@ namespace smart_table.Staff.Controllers
             }
             return View(_viewsPath + "ManageEventsView.cshtml", events);
         }
-
     }
 }

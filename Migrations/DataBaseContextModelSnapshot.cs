@@ -25,6 +25,7 @@ namespace smart_table.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'10', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<double>("Amount")
@@ -38,7 +39,6 @@ namespace smart_table.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Evaluation")
-                        .IsRequired()
                         .HasColumnName("evaluation")
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
@@ -58,8 +58,10 @@ namespace smart_table.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<double?>("Tips")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("tips")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double precision")
+                        .HasDefaultValue(0.0);
 
                     b.HasKey("Id");
 
@@ -89,7 +91,7 @@ namespace smart_table.Migrations
                             Evaluation = "Malonus aptarnavimas",
                             FkCustomerTables = 2L,
                             FkDiscounts = 2L,
-                            IsPaid = false,
+                            IsPaid = true,
                             Tips = 0.0
                         },
                         new
@@ -99,7 +101,7 @@ namespace smart_table.Migrations
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "",
                             FkCustomerTables = 1L,
-                            IsPaid = false,
+                            IsPaid = true,
                             Tips = 0.0
                         },
                         new
@@ -109,7 +111,7 @@ namespace smart_table.Migrations
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "",
                             FkCustomerTables = 1L,
-                            IsPaid = false,
+                            IsPaid = true,
                             Tips = 0.0
                         },
                         new
@@ -119,7 +121,7 @@ namespace smart_table.Migrations
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Evaluation = "",
                             FkCustomerTables = 3L,
-                            IsPaid = false,
+                            IsPaid = true,
                             Tips = 0.0
                         });
                 });
@@ -158,9 +160,9 @@ namespace smart_table.Migrations
                         new
                         {
                             Id = 1L,
-                            IsTaken = true,
+                            IsTaken = false,
                             JoinCode = "DEF",
-                            QrCode = "http://localhost:65312/QrCode/1",
+                            QrCode = "http://localhost:65312/TakeTable?id=1",
                             SeatsCount = 6
                         },
                         new
@@ -168,7 +170,7 @@ namespace smart_table.Migrations
                             Id = 2L,
                             IsTaken = false,
                             JoinCode = "wxz",
-                            QrCode = "http://localhost:65312/QrCode/2",
+                            QrCode = "http://localhost:65312/TakeTable?id=2",
                             SeatsCount = 4
                         },
                         new
@@ -176,7 +178,7 @@ namespace smart_table.Migrations
                             Id = 3L,
                             IsTaken = false,
                             JoinCode = "wxz",
-                            QrCode = "http://localhost:65312/QrCode/3",
+                            QrCode = "http://localhost:65312/TakeTable?id=3",
                             SeatsCount = 4
                         });
                 });
@@ -509,6 +511,7 @@ namespace smart_table.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'10', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<long>("FkBills")
@@ -868,6 +871,13 @@ namespace smart_table.Migrations
                             FkOrders = 2L,
                             Comment = "",
                             Quantity = 1
+                        },
+                        new
+                        {
+                            FkDishes = 11L,
+                            FkOrders = 3L,
+                            Comment = "",
+                            Quantity = 1
                         });
                 });
 
@@ -877,6 +887,7 @@ namespace smart_table.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'10', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTime?>("DateTime")
@@ -930,7 +941,7 @@ namespace smart_table.Migrations
                             DateTime = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 2L,
                             FkRegisteredUsers = 3L,
-                            Served = false,
+                            Served = true,
                             Submitted = true,
                             Temperature = 17.0
                         },
@@ -939,7 +950,7 @@ namespace smart_table.Migrations
                             Id = 3L,
                             DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 3L,
-                            Served = false,
+                            Served = true,
                             Submitted = true,
                             Temperature = 19.0
                         },
@@ -948,7 +959,7 @@ namespace smart_table.Migrations
                             Id = 4L,
                             DateTime = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FkBills = 5L,
-                            Served = false,
+                            Served = true,
                             Submitted = true,
                             Temperature = 19.0
                         });

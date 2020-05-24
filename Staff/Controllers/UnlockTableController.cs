@@ -25,8 +25,7 @@ namespace smart_table.Staff.Controllers
         {
             return Redirect("~/" + HttpContext.Session.GetString("previous_page"));
         }
-
-        
+   
         public async Task<IActionResult> UnlockTable(long? id)
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
@@ -45,7 +44,6 @@ namespace smart_table.Staff.Controllers
             return View(_viewsPath + "UnlockTableConfirmView.cshtml", customerTables);
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnlockTable(long id)
