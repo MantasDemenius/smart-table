@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -38,6 +39,106 @@ namespace smart_table.Customer.Controllers
             ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             HttpContext.Session.SetInt32("dish_id", Convert.ToInt32(id));
             return View(_viewsPath + "OrderDishFormView.cshtml");
+        }
+
+        public IActionResult openManageOrderView()
+        {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
+            var tableId = HttpContext.Session.GetInt32("customer_table_id");
+
+            var bill = _context.Bills
+                .FirstOrDefault(b => b.FkCustomerTables == tableId && b.IsPaid == false);
+
+            if (bill == null)
+            {
+                return NotFound();
+            }
+
+            var billOrders = _context.OrderDishes
+                .Include(d => d.FkDishesNavigation)
+                .Include(o => o.FkOrdersNavigation)
+                .Where(dob => dob.FkOrdersNavigation.FkBills == bill.Id)
+                .Select(s => new
+                {
+                    id = s.FkOrders,
+                    title = s.FkDishesNavigation.Title,
+                    quantity = s.Quantity,
+                    price = Math.Round((double)(s.FkDishesNavigation.Price - (s.FkDishesNavigation.Price * (s.FkDishesNavigation.Discount / 100))) * s.Quantity, 2)
+                }).ToList();
+
+            double amount = billOrders.Aggregate(0.0, (acc, x) => acc + x.price);
+
+
+            TempData["amount"] = Math.Round(amount, 2);
+            TempData["id"] = billOrders.First().id;
+
+            dynamic BillModel = new ExpandoObject();
+            BillModel.Orders = billOrders;
+
+            return View(_viewsPath + "ManageOrderView.cshtml", BillModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult submitOrder(long id)
+        {
+            ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
+            var tableId = HttpContext.Session.GetInt32("customer_table_id");
+
+            var bill = _context.Bills
+                .FirstOrDefault(b => b.FkCustomerTables == tableId && b.IsPaid == false);
+
+            var order = _context.Orders
+                .FirstOrDefault(o => o.Id == id);
+
+            var billOrders = _context.OrderDishes
+             .Include(d => d.FkDishesNavigation)
+             .Include(o => o.FkOrdersNavigation)
+             .Where(dob => dob.FkOrdersNavigation.FkBills == bill.Id)
+             .Select(s => new
+             {
+                 id = s.FkOrders,
+                 title = s.FkDishesNavigation.Title,
+                 quantity = s.Quantity,
+                 price = Math.Round((double)(s.FkDishesNavigation.Price - (s.FkDishesNavigation.Price * (s.FkDishesNavigation.Discount / 100))) * s.Quantity, 2)
+             }).ToList();
+
+            try
+                {
+                    order.Submitted = true;
+                    Events events = new Events();
+                    events.Type = 4;
+                    events.FkBills = (long)order.FkBills;
+                    _context.Add(events);
+                    _context.Update(order);
+                     _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderDishesExists(order.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            double amount = billOrders.Aggregate(0.0, (acc, x) => acc + x.price);
+
+
+            TempData["amount"] = Math.Round(amount, 2);
+            TempData["id"] = billOrders.First().id;
+
+
+            dynamic BillModel = new ExpandoObject();
+            BillModel.Orders = billOrders;
+
+            ViewData["message"] = "Jūsų užsakymas buvo priimtas";
+
+            return View(_viewsPath + "ManageOrderView.cshtml", BillModel);
         }
 
         // GET: ManageOrder/Details/5

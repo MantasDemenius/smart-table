@@ -52,6 +52,7 @@ namespace smart_table.Customer.Controllers
         public IActionResult openPaymentView()
         {
             ViewData["user_role"] = HttpContext.Session.GetInt32("user_role");
+            ViewData["table_code"] = HttpContext.Session.GetString("table_code");
             var tableId = HttpContext.Session.GetInt32("customer_table_id");
             if (tableId == null)
             {
@@ -74,9 +75,9 @@ namespace smart_table.Customer.Controllers
                 .Where(dob => dob.FkOrdersNavigation.FkBills == bill.Id)
                 .Select(s => new
                 {
-                    Price = s.FkDishesNavigation.Price * s.Quantity,
+                    Price = Math.Round((double)(s.FkDishesNavigation.Price - (s.FkDishesNavigation.Price * (s.FkDishesNavigation.Discount / 100))) * s.Quantity, 2)
                 }).ToList();
-
+            //double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
             var amount = billOrders.Aggregate(0.0, (acc, x) => acc + x.Price);
 
             bill.Amount = amount;
