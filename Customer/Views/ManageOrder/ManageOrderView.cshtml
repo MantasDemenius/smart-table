@@ -1,0 +1,54 @@
+﻿@model dynamic
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Apmoketi uzsakyma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    
+}
+
+<h1>Užsakymas</h1>
+<h3>@ViewData["message"]</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Patiekalas</th>
+            <th scope="col">Kiekis</th>
+            <th scope="col">Kaina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (dynamic item in Model.Orders)
+        {
+            string temp = Convert.ToString(item);
+            string title = "title";
+            string quantity = "quantity";
+            string price = "price";
+        <tr>
+            <td>@temp.Substring((temp.IndexOf(title) + title.Length + 3), (temp.IndexOf(",", temp.IndexOf(title) + title.Length + 3)) - (temp.IndexOf(title) + title.Length + 3))</td>
+            <td>@temp.Substring((temp.IndexOf(quantity) + quantity.Length + 3), (temp.IndexOf(",", temp.IndexOf(quantity) + quantity.Length + 3)) - (temp.IndexOf(quantity) + quantity.Length + 3))</td>
+            <td>@temp.Substring((temp.IndexOf(price) + price.Length + 3), (temp.IndexOf("}", temp.IndexOf(price) + price.Length + 3)-1) - (temp.IndexOf(price) + price.Length + 3))</td>
+            @*<td>@item.quantity</td>
+        <td>@item.price</td>*@
+        </tr>
+                
+            }
+        <tr>
+            <td></td>
+            <td>Galutinė kaina</td>
+            <td>@TempData["amount"]</td>
+        </tr>
+    </tbody>
+</table>
+   
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="submitOrder">
+            <input type="hidden" id="id" name="id" value="@TempData["id"]" />
+            <div class="form-group">
+                <input type="submit" value="Pateikti užsakymą" class="btn btn-primary" />
+                <a asp-controller="Menu" asp-action="openMainMenuView" class="card-link">Grįžti į meniu</a>
+            </div>
+        </form>
+    </div>
+</div>

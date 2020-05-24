@@ -44,19 +44,19 @@ namespace smart_table.Staff.Controllers
                 .Include(o => o.FkRegisteredUsersNavigation)
                 .Include(o => o.OrderDishes)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            
-            foreach(var orderDish in orders.OrderDishes)
+
+            foreach (var orderDish in orders.OrderDishes)
             {
                 var dish = await _context.Dishes
                     .FirstOrDefaultAsync(m => m.Id == orderDish.FkDishes);
-                
+
             }
-            
+
             if (orders == null)
             {
                 return NotFound();
             }
-            
+
             return View(_viewsPath + "OrderView.cshtml", orders);
         }
 
