@@ -6,26 +6,19 @@
 }
 
 <h1>Užsakymų valdymas</h1>
-<h3>@ViewData["message"]</h3>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateTime)
+                @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Submitted)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Served)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FkBillsNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FkRegisteredUsersNavigation)
@@ -38,30 +31,18 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Submitted)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Served)
-                </td>
-                <td>
-                    @{
-                        if (item.FkBillsNavigation != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.FkBillsNavigation.Id);
-                        }
-                    }
-
-                </td>
-                <td>
                     @{
                         if (item.FkBillsNavigation != null)
                         {
                             @Html.DisplayFor(modelItem => item.FkBillsNavigation.FkCustomerTables)
                         }
                     }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Submitted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Served)
                 </td>
                 <td>
                     @{
@@ -73,7 +54,7 @@
 
                 </td>
                 <td>
-                    <a asp-action="OpenOrderView" asp-route-id="@item.Id">Peržiūrėti</a>
+                    <a class="btn btn-primary" asp-action="OpenOrderView" asp-route-id="@item.Id">Peržiūrėti</a>
                 </td>
             </tr>
         }

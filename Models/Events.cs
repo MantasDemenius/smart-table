@@ -12,7 +12,7 @@ namespace smart_table.Models
         public long FkBills { get; set; }
 
         public virtual Bills FkBillsNavigation { get; set; }
-        [Display(Name = "Tipas")]
+        [Display(Name = "Pranešimas")]
         public virtual EventType TypeNavigation { get; set; }
     }
 }

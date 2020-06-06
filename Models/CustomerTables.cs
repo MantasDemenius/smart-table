@@ -11,7 +11,7 @@ namespace smart_table.Models
             Bills = new HashSet<Bills>();
         }
 
-        [Display(Name = "ID")]
+        [Display(Name = "Stalo numeris")]
         public long Id { get; set; }
 
         [Display(Name = "Vietų skaičius")]

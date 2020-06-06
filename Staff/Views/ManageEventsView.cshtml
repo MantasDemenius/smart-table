@@ -6,7 +6,9 @@
 }
 
 <h1>Įvykių valdymas</h1>
-<h3>@ViewData["message"]</h3>
+<h3>
+    @ViewData["message"]
+</h3>
 
 <table class="table">
     <thead>
@@ -15,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.TypeNavigation.Name)
             </th>
             <th>
-                Staliuko @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation.Id)
+                @Html.DisplayNameFor(model => model.FkBillsNavigation.FkCustomerTablesNavigation.Id)
             </th>
         </tr>
     </thead>
@@ -34,7 +36,7 @@
                     @{
                         if (item.Type == 3 && item.FkBillsNavigation.Orders.Where(o => o.FkRegisteredUsers == null).Count() > 0)
                         {
-                            <a asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkBillsNavigation.FkCustomerTables">Prisiskirti</a>
+                            <a class="btn btn-primary" asp-controller="AssignTable" asp-action="AssignTable" asp-route-id="@item.FkBillsNavigation.FkCustomerTables">Prisiskirti</a>
                         }
                     }
 
@@ -43,3 +45,5 @@
         }
     </tbody>
 </table>
+
+<script>console.log(@ViewData["message"])</script>

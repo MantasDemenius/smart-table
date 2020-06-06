@@ -41,7 +41,7 @@ namespace smart_table.Models
         public string Phone { get; set; }
 
         [Column("email")]
-        [Required(ErrorMessage = "El. paštos yra privalomas")]
+        [Required(ErrorMessage = "El. paštas yra privalomas")]
         [StringLength(255, ErrorMessage = "El. paštas yra per ilgas")]
         [Display(Name = "El. paštas")]
         [EmailAddress(ErrorMessage = "El. pašto formatas yra netinkamas")]
@@ -61,6 +61,7 @@ namespace smart_table.Models
         [Display(Name = "Rolė")]
         public long Role { get; set; }
 
+        [Display(Name= "Rolė")]
         public virtual UserRole RoleNavigation { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
     }

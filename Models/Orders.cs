@@ -13,7 +13,7 @@ namespace smart_table.Models
 
         public long Id { get; set; }
        
-        [Display(Name = "Data ir laikas")]
+        [Display(Name = "Data")]
         public DateTime? DateTime { get; set; }
 
         [Display(Name = "Temperatūra")]

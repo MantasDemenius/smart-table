@@ -7,7 +7,9 @@
 }
 
 <h1>Naudotojo kūrimas</h1>
-<h3>@ViewData["message"]</h3>
+<h3>
+    @ViewData["message"]
+</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -54,13 +56,10 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Sukurti" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="OpenManageRegisteredUsersView">Grįžti atgal</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="OpenManageRegisteredUsersView">Grįžti atgal</a>
 </div>
 
 @section Scripts {

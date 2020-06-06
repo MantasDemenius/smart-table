@@ -9,9 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow justify-content-between mb-3">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow justify-content-between mb-3 px-lg-5">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Smart Table</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -22,68 +20,74 @@
                                 if ((int)ViewData["user_role"] == 3)
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="Recommendation" asp-action="OpenRecommendationsView">Rekomendacijos</a>
+                                        <a class="nav-item nav-link active" asp-area="" asp-controller="Recommendation" asp-action="OpenRecommendationsView">Rekomendacijos</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="order_button" class="nav-item nav-link" asp-controller="ManageOrder" asp-action="openManageOrderView">Valdyti užsakymą</a>
-                                    </li>        
-                                    <li class="nav-item">
-                                        <a id="bill_button" class="nav-item nav-link" asp-controller="Payment" asp-action="openPaymentView">Apmokėti sąskaitą</a>
+                                        <a id="order_button" class="nav-item nav-link active" asp-controller="ManageOrder" asp-action="openManageOrderView">Valdyti užsakymą</a>
                                     </li>
-                                }
-                                if ((int)ViewData["user_role"] == 2)
-                                {
+
                                     <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="Notifications" asp-action="OpenNotificationsView">Įvykių valdymas</a>
+                                        <a id="bill_button" class="nav-item nav-link active" asp-controller="Payment" asp-action="openPaymentView">Apmokėti sąskaitą</a>
                                     </li>
                                 }
                                 if ((int)ViewData["user_role"] == 2)
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="ViewTables" asp-action="OpenViewTablesView">Stalų peržiūra</a>
+                                        <a class="nav-item nav-link active" asp-area="" asp-controller="Notifications" asp-action="OpenNotificationsView">Įvykių valdymas</a>
+                                    </li>
+                                }
+                                if ((int)ViewData["user_role"] == 1)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-item nav-link active" asp-area="" asp-controller="ManageRegisteredUsers" asp-action="OpenManageRegisteredUsersView">Naudotojų valdymas</a>
+                                    </li>
+                                }
+                                if ((int)ViewData["user_role"] == 2)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-item nav-link active" asp-area="" asp-controller="ViewTables" asp-action="OpenViewTablesView">Stalų peržiūra</a>
                                     </li>
                                 }
                                 if ((int)ViewData["user_role"] == 1 || (int)ViewData["user_role"] == 2)
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="ManageOrders" asp-action="OpenManageOrdersView">Užsakymų valdymas</a>
+                                        <a class="nav-item nav-link active" asp-area="" asp-controller="ManageOrders" asp-action="OpenManageOrdersView">Užsakymų valdymas</a>
                                     </li>
                                 }
 
-                                if ((int)ViewData["user_role"] == 1)
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-item nav-link" asp-area="" asp-controller="ManageRegisteredUsers" asp-action="OpenManageRegisteredUsersView">Naudotojų valdymas</a>
-                                    </li>
-                                }
+
                             }
                         </ul>
+                            
+                        <ul class="navbar-nav ml-auto">
+
+                            @if ((int)ViewData["user_role"] != 3)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link active" asp-controller="Home" asp-action="logout">Atsijungti</a>
+                                </li>
+                            }
+
+                            @if ((int)ViewData["user_role"] == 3)
+                            {
+                            <li class="nav-item">
+                                <a id="table_code" class="nav-item nav-link active disabled">Stalo kodas: @ViewData["table_code"]  </a>
+                            </li>
+                            }
+                         </ul>
+                            
                     </div>
                 </nav>
-                @{
-                    if ((int)ViewData["user_role"] == 3)
-                    {
-
-                        <a id="table_code" class="nav-item navbar-text">Stalo kodas: @ViewData["table_code"]  </a>
-
-                    }
-                }
-            </div>
-            @{
-                if ((int)ViewData["user_role"] != 3)
-                {
-                    <a class="nav-item navbar-text" asp-controller="Home" asp-action="logout">Atsijungti</a>
-                }
-            }
-        </nav>
+                
     </header>
-    <div class="container">
+    <div class="background">
+        <div class="container content">
 
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Smart Table

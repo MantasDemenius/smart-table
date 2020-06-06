@@ -6,7 +6,9 @@
 }
 
 <h1>Apmokėti sąskaitą</h1>
-<h3>@ViewData["message"]</h3>
+<h3>
+    @ViewData["message"]
+</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,7 +19,7 @@
             <input type="hidden" asp-for="DateTime" />
             <input type="hidden" asp-for="IsPaid" />
             <input type="hidden" asp-for="FkDiscounts" />
-            <input type="hidden" asp-for="FkCustomerTables"/>
+            <input type="hidden" asp-for="FkCustomerTables" />
             <div class="form-group">
                 <label asp-for="Tips" class="control-label"></label>
                 <input type="number" asp-for="Tips" class="form-control" />
@@ -33,13 +35,10 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Apmokėti" class="btn btn-primary" />
+                <a asp-controller="Menu" asp-action="openMainMenuView" class="btn btn-secondary">Grįžti į meniu</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Menu" asp-action="openMainMenuView" class="card-link">Grįžti į meniu</a>
 </div>
 
 @section Scripts {

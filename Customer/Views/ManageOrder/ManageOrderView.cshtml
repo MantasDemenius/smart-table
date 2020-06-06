@@ -4,11 +4,13 @@
     ViewData["Title"] = "Apmoketi uzsakyma";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    
+
 }
 
 <h1>Užsakymas</h1>
-<h3>@ViewData["message"]</h3>
+<h3>
+    @ViewData["message"]
+</h3>
 <table class="table">
     <thead>
         <tr>
@@ -24,15 +26,15 @@
             string title = "title";
             string quantity = "quantity";
             string price = "price";
-        <tr>
-            <td>@temp.Substring((temp.IndexOf(title) + title.Length + 3), (temp.IndexOf(",", temp.IndexOf(title) + title.Length + 3)) - (temp.IndexOf(title) + title.Length + 3))</td>
-            <td>@temp.Substring((temp.IndexOf(quantity) + quantity.Length + 3), (temp.IndexOf(",", temp.IndexOf(quantity) + quantity.Length + 3)) - (temp.IndexOf(quantity) + quantity.Length + 3))</td>
-            <td>@temp.Substring((temp.IndexOf(price) + price.Length + 3), (temp.IndexOf("}", temp.IndexOf(price) + price.Length + 3)-1) - (temp.IndexOf(price) + price.Length + 3))</td>
-            @*<td>@item.quantity</td>
-        <td>@item.price</td>*@
-        </tr>
-                
-            }
+            <tr>
+                <td>@temp.Substring((temp.IndexOf(title) + title.Length + 3), (temp.IndexOf(",", temp.IndexOf(title) + title.Length + 3)) - (temp.IndexOf(title) + title.Length + 3))</td>
+                <td>@temp.Substring((temp.IndexOf(quantity) + quantity.Length + 3), (temp.IndexOf(",", temp.IndexOf(quantity) + quantity.Length + 3)) - (temp.IndexOf(quantity) + quantity.Length + 3))</td>
+                <td>@temp.Substring((temp.IndexOf(price) + price.Length + 3), (temp.IndexOf("}", temp.IndexOf(price) + price.Length + 3) - 1) - (temp.IndexOf(price) + price.Length + 3))</td>
+                @*<td>@item.quantity</td>
+                    <td>@item.price</td>*@
+            </tr>
+
+        }
         <tr>
             <td></td>
             <td>Galutinė kaina</td>
@@ -40,14 +42,14 @@
         </tr>
     </tbody>
 </table>
-   
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="submitOrder">
             <input type="hidden" id="id" name="id" value="@TempData["id"]" />
             <div class="form-group">
                 <input type="submit" value="Pateikti užsakymą" class="btn btn-primary" />
-                <a asp-controller="Menu" asp-action="openMainMenuView" class="card-link">Grįžti į meniu</a>
+                <a asp-controller="Menu" asp-action="openMainMenuView" class="btn btn-secondary">Grįžti į meniu</a>
             </div>
         </form>
     </div>
