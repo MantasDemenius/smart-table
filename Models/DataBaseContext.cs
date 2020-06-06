@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 using System;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
@@ -180,7 +180,7 @@ namespace smart_table.Models.DataBase
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
-                    .HasMaxLength(12)
+                    .HasMaxLength(255)
                     .IsFixedLength();
             });
 
@@ -363,7 +363,9 @@ namespace smart_table.Models.DataBase
             {
                 entity.ToTable("registered_users");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                .HasIdentityOptions(startValue: 10)
+                .HasColumnName("id");
 
                 entity.Property(e => e.BirthDate)
                     .HasColumnName("birth_date")
@@ -412,7 +414,7 @@ namespace smart_table.Models.DataBase
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
-                    .HasMaxLength(13)
+                    .HasMaxLength(255)
                     .IsFixedLength();
             });
 
@@ -420,22 +422,22 @@ namespace smart_table.Models.DataBase
                 new EventType
                 {
                     Id = 1,
-                    Name = "Saskaita"
+                    Name = "Atnesti saskaita"
                 },
                 new EventType
                 {
                     Id = 2,
-                    Name = "Atsaukimas"
+                    Name = "Uzsakymo atsaukimas"
                 },
                 new EventType
                 {
                     Id = 3,
-                    Name = "Klientas"
+                    Name = "Stalas buvo uzimtas"
                 },
                 new EventType
                 {
                     Id = 4,
-                    Name = "Uzsakymas"
+                    Name = "Naujas uzsakymas"
                 }
                 );
 
@@ -443,19 +445,19 @@ namespace smart_table.Models.DataBase
                 new UserRole
                 {
                     Id = 1,
-                    Name = "administrator"
+                    Name = "Administratorius"
                 },
                 new UserRole
                 {
                     Id = 2,
-                    Name = "waiter"
+                    Name = "Padavejas"
                 });
             modelBuilder.Entity<RegisteredUsers>().HasData(
                 new RegisteredUsers
                 {
                     Id = 1,
-                    Name = "User1",
-                    Surname = "User1",
+                    Name = "Jonas",
+                    Surname = "Jonaitis",
                     Password = "Password123",
                     Phone = "860000000",
                     Email = "email@email.com",
@@ -466,8 +468,8 @@ namespace smart_table.Models.DataBase
                 new RegisteredUsers
                 {
                     Id = 2,
-                    Name = "User2",
-                    Surname = "User2",
+                    Name = "Jozefina",
+                    Surname = "Jozefinaite",
                     Password = "Password456",
                     Phone = "",
                     Email = "",
@@ -478,8 +480,8 @@ namespace smart_table.Models.DataBase
                 new RegisteredUsers
                 {
                     Id = 3,
-                    Name = "User3",
-                    Surname = "User3",
+                    Name = "Petras",
+                    Surname = "Petraitis",
                     Password = "Secret123",
                     Phone = "",
                     Email = "",

@@ -6,15 +6,21 @@
 
 }
 
-<h1>Įtraukti patiekalą į užsakymą</h1>
-<h3>@ViewData["message"]</h3>
+<h3>Įtraukti patiekalą į užsakymą</h3>
+@if ((string)ViewData["message"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @ViewData["message"]
+    </div>
+}
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="addDish">
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" value="1"/>
+                <input asp-for="Quantity" class="form-control" value="1" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comment" class="control-label"></label>
@@ -23,13 +29,10 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Įtraukti" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="goBack">Grįžti atgal</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="goBack">Grįžti atgal</a>
 </div>
 
 @section Scripts {

@@ -12,7 +12,7 @@ namespace smart_table.Models
         }
 
         public long Id { get; set; }
-        [Display(Name = "Tipas")]
+        [Display(Name = "Pranešimas")]
         public string Name { get; set; }
 
         public virtual ICollection<Events> Events { get; set; }

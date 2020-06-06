@@ -5,22 +5,24 @@
     ViewData["Title"] = "Meniu";
 }
 
- <h3>@ViewData["message"]</h3>
+<h3>
+    @ViewData["message"]
+</h3>
 @foreach (var item in Model)
 {
 
     @if ((item.FkMenusNavigation.TimeFrom <= DateTime.Now.TimeOfDay && item.FkMenusNavigation.TimeUntil >= DateTime.Now.TimeOfDay)
-     || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
+   || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
     {
         double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
         <div class="py-md-1" style="text-align:-webkit-center;">
-            <div class="card" style="width: 75%; text-align:justify;">
+            <div class="card card-width" style="text-align:justify;">
                 <a class="card-body card-link" asp-controller="Dish" asp-action="openDishView" asp-route-id="@item.FkDishesNavigation.Id">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Title)</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.FkDishesNavigation.Description)</h6>
                     @if (item.FkDishesNavigation.Discount != 0)
                     {
-                        <p class="card-text text-danger">€@discountedPrice<span class="text-black-50 px-sm-3"><del>@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</del></span></p>
+                        <span class="card-text text-danger">€@discountedPrice</span><span class="text-black-50" style="padding-left:1rem;"><del>@Html.DisplayFor(modelItem => item.FkDishesNavigation.Price)</del></span>
                     }
                     else
                     {

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_table.Models.DataBase;
@@ -9,9 +10,10 @@ using smart_table.Models.DataBase;
 namespace smart_table.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200606155926_Lithuania")]
+    partial class Lithuania
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -474,9 +476,9 @@ namespace smart_table.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("name")
-                        .HasColumnType("character(255)")
+                        .HasColumnType("character(12)")
                         .IsFixedLength(true)
-                        .HasMaxLength(255);
+                        .HasMaxLength(12);
 
                     b.HasKey("Id");
 
@@ -486,7 +488,7 @@ namespace smart_table.Migrations
                         new
                         {
                             Id = 1L,
-                            Name = "Atnesti saskaita"
+                            Name = "Atnesti sąskaita"
                         },
                         new
                         {
@@ -971,7 +973,6 @@ namespace smart_table.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'10', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTime>("BirthDate")
@@ -1071,9 +1072,9 @@ namespace smart_table.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("name")
-                        .HasColumnType("character(255)")
+                        .HasColumnType("character(13)")
                         .IsFixedLength(true)
-                        .HasMaxLength(255);
+                        .HasMaxLength(13);
 
                     b.HasKey("Id");
 

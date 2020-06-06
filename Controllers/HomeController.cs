@@ -73,10 +73,6 @@ namespace smart_table.Controllers
             {
                 return NotFound();
             }
-            if (HttpContext.Session.GetInt32("customer_table_id") != null) {
-                HttpContext.Session.SetInt32("user_role", 3);
-                return Redirect("~/Menu");
-            }
 
             if (HttpContext.Session.GetInt32("user_role") != (int)3) {
                 HttpContext.Session.SetInt32("customer_table_id", Convert.ToInt32(tableId));
@@ -85,7 +81,8 @@ namespace smart_table.Controllers
 
                 var customerTable = await _context.CustomerTables.FindAsync(tableId);
                 if (customerTable == null || customerTable.IsTaken) {
-                    return View("~/Customer/Views/QrCodeCustomer/" + "QrCodeView.cshtml");
+                    TempData["ErrorMessage"] = "Šitas stalas jau užimtas, pabandykite kitą staliuką";
+                    return View("~/Views/Home/Index.cshtml");
                 }
 
                 customerTable.JoinCode = joinCode;
