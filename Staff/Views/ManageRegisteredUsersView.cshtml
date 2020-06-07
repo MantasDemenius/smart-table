@@ -5,10 +5,13 @@
     ViewData["Title"] = "Padavėjų valdymas";
 }
 
-<h1>Naudotojų valdymas</h1>
-<h3>
-    @ViewData["message"]
-</h3>
+<h3>Naudotojų valdymas</h3>
+@if (ViewData["message"] != null && ViewData["message"] != "")
+{
+    <div class="alert alert-info" role="alert">
+        @ViewData["message"]
+    </div>
+}
 <p>
 
     <a style="float:right;" asp-action="OpenCreateRegisteredUserView">+ Naujas padavėjas</a>
@@ -61,3 +64,4 @@
         }
     </tbody>
 </table>
+

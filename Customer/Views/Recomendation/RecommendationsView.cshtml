@@ -5,6 +5,7 @@
     ViewData["Title"] = "Rekomendacijos";
 }
 
+<h3 class="py-md-1" style="text-align:-webkit-center;">Rekomendacijos</h3>
 @foreach (var item in Model)
 {
 double discountedPrice = Math.Round((double)(item.Price - (item.Price * (item.Discount / 100))), 2);

@@ -6,7 +6,7 @@
     double amount = Model.OrderDishes.ToList().Aggregate(0.0, (acc, x) => acc + Math.Round((double)(x.FkDishesNavigation.Price - (x.FkDishesNavigation.Price * (x.FkDishesNavigation.Discount / 100))), 2) * x.Quantity);
 }
 
-<h1>Detali užsakymo informacija</h1>
+<h3>Detali užsakymo informacija</h3>
 
 <div>
     <hr />

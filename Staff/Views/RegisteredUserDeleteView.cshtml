@@ -4,13 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Ištrinti padavėja";
 }
-
-<h3>Ar tikrai norite ištrinti naudotoją @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h3>
-
-<div>
-    <form asp-action="DeleteRegisteredUser">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Taip" class="btn btn-primary" /> |
-        <a asp-action="OpenManageRegisteredUsersView" class="btn btn-secondary">Ne</a>
-    </form>
+<div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false" style="display:block;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                Ar tikrai norite ištrinti naudotoją @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)
+            </div>
+            <div class="modal-footer">
+                <form asp-action="DeleteRegisteredUser">
+                    <input type="hidden" asp-for="Id" />
+                    <a asp-action="OpenManageRegisteredUsersView" class="btn btn-secondary" data-dismiss="modal">Ne</a>
+                    <input type="submit" value="Taip" class="btn btn-primary"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

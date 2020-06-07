@@ -5,10 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Įvykių valdymas</h1>
-<h3>
-    @ViewData["message"]
-</h3>
+<h3>Įvykių valdymas</h3>
+@if (ViewData["message"] != null && ViewData["message"] != "")
+{
+    <div class="alert alert-info" role="alert">
+        @ViewData["message"]
+    </div>
+}
 
 <table class="table">
     <thead>
@@ -45,5 +48,3 @@
         }
     </tbody>
 </table>
-
-<script>console.log(@ViewData["message"])</script>

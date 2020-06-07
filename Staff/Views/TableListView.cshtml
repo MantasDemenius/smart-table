@@ -6,10 +6,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Stalų peržiūra</h1>
-<h3>
-    @ViewData["message"]
-</h3>
+<h3>Stalų peržiūra</h3>
+@if (ViewData["message"] != null && ViewData["message"] != "")
+{
+    <div class="alert alert-info" role="alert">
+        @ViewData["message"]
+    </div>
+}
 
 
 <table class="table">

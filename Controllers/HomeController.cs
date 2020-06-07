@@ -57,7 +57,7 @@ namespace smart_table.Controllers
         public IActionResult ConnectAsWaiter()
         {
             HttpContext.Session.SetInt32("user_role", 2);
-            HttpContext.Session.SetInt32("user_id", 2);
+            HttpContext.Session.SetInt32("user_id", 1);
             return Redirect("~/Notifications");
         }
 

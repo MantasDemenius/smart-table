@@ -22,32 +22,6 @@ namespace smart_table.Customer.Controllers
             _context = context;
         }
 
-        // GET: Payment
-        public async Task<IActionResult> Index()
-        {
-            var dataBaseContext = _context.Bills.Include(b => b.FkDiscountsNavigation);
-            return View(await dataBaseContext.ToListAsync());
-        }
-
-        // GET: Payment/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var bills = await _context.Bills
-                .Include(b => b.FkDiscountsNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (bills == null)
-            {
-                return NotFound();
-            }
-
-            return View(bills);
-        }
-
         // GET: Payment/Create
         public IActionResult openPaymentView()
         {
@@ -77,8 +51,15 @@ namespace smart_table.Customer.Controllers
                 {
                     Price = Math.Round((double)(s.FkDishesNavigation.Price - (s.FkDishesNavigation.Price * (s.FkDishesNavigation.Discount / 100))) * s.Quantity, 2)
                 }).ToList();
+
+            if (billOrders.Count == 0)
+            {
+                var dataBaseContext = _context.MenuDishes.Include(m => m.FkDishesNavigation).Include(m => m.FkMenusNavigation);
+                ViewData["message"] = "Jūsų krepšelis tuščias";
+                return View("~/Customer/Views/Menu/" + "MainMenuView.cshtml", dataBaseContext.ToList());
+            }
             //double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
-            var amount = billOrders.Aggregate(0.0, (acc, x) => acc + x.Price);
+            var amount = Math.Round(billOrders.Aggregate(0.0, (acc, x) => acc + x.Price),2);
 
             bill.Amount = amount;
 
@@ -129,72 +110,6 @@ namespace smart_table.Customer.Controllers
         private bool validatePayment(Bills bill)
         {
             return bill.IsPaid == false && bill.Amount > 0 && bill.Tips >= 0;
-        }
-
-        // POST: Payment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,DateTime,Tips,Amount,IsPaid,Evaluation,FkDiscounts,FkCustomerTables")] Bills bills)
-        {
-            if (id != bills.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(bills);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BillsExists(bills.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["FkDiscounts"] = new SelectList(_context.Discounts, "Id", "DiscountCode", bills.FkDiscounts);
-            return View(bills);
-        }
-
-        // GET: Payment/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var bills = await _context.Bills
-                .Include(b => b.FkDiscountsNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (bills == null)
-            {
-                return NotFound();
-            }
-
-            return View(bills);
-        }
-
-        // POST: Payment/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var bills = await _context.Bills.FindAsync(id);
-            _context.Bills.Remove(bills);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool BillsExists(long id)

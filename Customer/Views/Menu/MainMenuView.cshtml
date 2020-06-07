@@ -4,15 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Meniu";
 }
+<h3 class="py-md-1" style="text-align:-webkit-center;">Menu</h3>
 
-<h3>
-    @ViewData["message"]
-</h3>
+@if (ViewData["message"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @ViewData["message"]
+    </div>
+}
+
 @foreach (var item in Model)
 {
 
     @if ((item.FkMenusNavigation.TimeFrom <= DateTime.Now.TimeOfDay && item.FkMenusNavigation.TimeUntil >= DateTime.Now.TimeOfDay)
-   || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
+  || item.FkMenusNavigation.TimeFrom == null || item.FkMenusNavigation.TimeUntil == null)
     {
         double discountedPrice = Math.Round((double)(item.FkDishesNavigation.Price - (item.FkDishesNavigation.Price * (item.FkDishesNavigation.Discount / 100))), 2);
         <div class="py-md-1" style="text-align:-webkit-center;">
